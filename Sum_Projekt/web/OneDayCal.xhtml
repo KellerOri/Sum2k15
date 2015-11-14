@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Calendar: One day view</title>
+        <!--h:outputStylesheet library="resources/css" name="OneDayCal.css"/-->
+        <link rel="stylesheet" type="text/css" href="resources/css/OneDayCal.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="resources/js/OneDayCal.js"></script>
+    </h:head>
+    <h:body>
+        <table id="tblDay">
+            <colgroup>
+                <col id="colTimes" span="1"/>
+                <col id="colActivities" span="1"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Aktiviteter</th>
+<!--                    <th>Mandag</th>
+                    <th>Tirsdag</th>
+                    <th>Onsdag</th>
+                    <th>Torsdag</th>
+                    <th>Fredag</th>
+                    <th>Loerdag</th>
+                    <th>Soendag</th>-->
+                </tr>
+            </thead>
+            
+            <tbody id="bodyTblDay">
+<!--                <tr>
+                    <td>Testing...</td>
+                </tr>
+                <tr>
+                    <td>Testing... Testing...</td>
+                </tr>-->
+            </tbody>
+        </table>
+    </h:body>
+</html>

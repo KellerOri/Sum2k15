@@ -1,0 +1,30 @@
+body{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    /*width: 100%;*/
+}
+table{
+    border-collapse: collapse;
+    empty-cells: show;
+    width: 1000px;
+    table-layout: fixed; //eller auto?
+}
+thead{
+    z-index: -1; //bagerst
+} 
+td, th{
+    font-size: 0.8em;
+    border: 1px solid #e6e6e6;//#98bf21;
+    padding: 3px 7px 2px 7px;
+    //background-color: lightgrey;
+}
+th{
+    font-size: 1.2em;
+    text-align: left;
+}
+#colTimes{
+    width: 10%;
+    text-align: right; //not working
+}
+#colActivities{
+    width: 90%;
+}
