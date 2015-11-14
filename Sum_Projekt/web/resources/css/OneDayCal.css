@@ -11,6 +11,9 @@ table{
 thead{
     z-index: -1; //bagerst
 } 
+tbody{
+    position: relative;
+}
 td, th{
     font-size: 0.8em;
     border: 1px solid #e6e6e6;//#98bf21;
@@ -20,6 +23,7 @@ td, th{
 th{
     font-size: 1.2em;
     text-align: left;
+    //position: absolute;
 }
 #colTimes{
     width: 10%;
@@ -27,4 +31,14 @@ th{
 }
 #colActivities{
     width: 90%;
+}
+#testActivity{
+    border: 1px dashed; 
+    position: absolute; 
+    left: 100px; 
+    top: 40px;
+    width: 120px; 
+    height: 120px; 
+    padding: 3px; 
+    margin: 0;
 }

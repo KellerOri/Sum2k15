@@ -14,3 +14,13 @@ $(function () {
 //    console.log(html);
     $("tbody").append(html);
 });
+//var element_pos = 0;
+//$(function (){
+//    $(function(){
+//        $("#testActivity").css({
+//            border: '1px dashed', position: 'absolute', left: element_pos, 
+//                top: $('#divContainer').height() + 20,
+//                width: '120', height: '120', padding: '3', margin: '0'
+//        });
+//    });
+//});
