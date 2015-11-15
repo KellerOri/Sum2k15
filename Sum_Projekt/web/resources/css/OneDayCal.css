@@ -1,43 +1,77 @@
+* {
+    box-sizing: border-box;
+}
 body{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     /*width: 100%;*/
+     -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 table{
     border-collapse: collapse;
     empty-cells: show;
-    width: 1000px;
-    table-layout: fixed; //eller auto?
-}
-thead{
-    z-index: -1; //bagerst
-} 
-tbody{
+    max-width: 1000px;
+    margin: 0 auto;
+   // table-layout: fixed; //eller auto?
     position: relative;
 }
-td, th{
+#colTimes{
+    width: 10%;
+    text-align: right;
+}
+#colActivities{
+    width: 90%;
+}
+
+thead{
+    /*z-index: -1; //bagerst*/
+} 
+tbody{
+    
+}
+th,td{
     font-size: 0.8em;
     border: 1px solid #e6e6e6;//#98bf21;
     padding: 3px 7px 2px 7px;
     //background-color: lightgrey;
+}
+tr{
+    
+}
+td{
+    position:relative; 
+    overflow: auto; 
+    height: 100%;
 }
 th{
     font-size: 1.2em;
     text-align: left;
     //position: absolute;
 }
-#colTimes{
-    width: 10%;
-    text-align: right; //not working
+.actClass{
+    position:absolute; 
+    top:1px; 
+    left:1px; 
+    background: yellow;
+    height: 100px;
 }
-#colActivities{
-    width: 90%;
+
+/*css til div under table*/
+#activitiesContainer{
+    border: 1px solid;
+    position: relative;
+    width: 600px;
+    height: 400px;
+    font-size: 0.8em;
 }
-#testActivity{
+
+.actClassTest{
     border: 1px dashed; 
     position: absolute; 
     left: 100px; 
     top: 40px;
-    width: 120px; 
+    width: 300px; 
     height: 120px; 
     padding: 3px; 
     margin: 0;
