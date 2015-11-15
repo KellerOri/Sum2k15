@@ -1,0 +1,25 @@
+#section{
+    display: table;
+    color: red;
+    width: 100%;
+    
+}
+.row-1{
+    display: table-row;
+    color: blue;
+}
+.row-2{
+    display: table-row;
+    color: green;
+}
+.col-1{
+    display: table-column;
+    background-color: lightgray;
+}
+.col-2{
+    display: table-column;
+}
+.cell{
+    display: table-cell;
+    border: 1px solid black;
+}

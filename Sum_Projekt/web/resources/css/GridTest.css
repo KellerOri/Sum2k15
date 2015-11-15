@@ -6,60 +6,50 @@
 }
 body{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border: 1px solid black;
 }
 .header {
     background-color: #9933cc;
     color: #ffffff;
 }
 .container{
-    position: relative;
+    display: table;
+    /*position: relative;*/
+    width: 1000px;
 }
 .times {
+    display: table-column;
     width: 10%;
     float: left;
-    position: absolute;
+    /*position: absolute;*/
     /*border: 1px solid red;*/
 }
 
-
-/*.times ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: block;
-}
-.times li {
-    padding: 0;
-    margin-bottom: 0;
-    background-color :#33b5e5;
-    color: #ffffff;
-    border: 1px solid black;
-    
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}*/
 .schedule {
-    position: absolute;
+    /*position: absolute;*/
     /*border: 1px solid red;*/
 }
 
 [class*="col-"] {
     float: left;
-    /*border: 1px solid red;*/
+    display: table-column;
 }
 .col-1 {
-    max-width: 10%;
-    min-width: 20px;
+/*    width: 200px;
+    max-width: 10%;*/
 }
-.col-2 {width: auto;}
+.col-2 {
+/*    width: 800px;
+    max-width: 90%;*/
+}
 
 [class*="row-"] {
-    float: left;
-    /*border: 1px solid red;*/
-    /*content: "";*/
+    display: table-row;
+/*    float: left;
+    border: 1px solid red;
+    content: "";
     clear: both;
-    display: block;
-}
+    display: block;*/
+}/*
 .row-1 {height: 4%;}
 .row-2 {height: 8%;}
 .row-3 {height: 12%;}
@@ -84,4 +74,4 @@ body{
 .row-22 {height: 86%;}
 .row-23 {height: 92%;}
 .row-24 {height: 96%;}
-.row-25 {height: 100%;}
+.row-25 {height: 100%;}*/
