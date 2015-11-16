@@ -4,58 +4,59 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
+    <head>
         <title>Calendar: One day view</title>
         <!--h:outputStylesheet library="resources/css" name="OneDayCal.css"/-->
         <link rel="stylesheet" type="text/css" href="resources/css/OneDayCal.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="resources/js/OneDayCal.js"></script>
-    </h:head>
-    <h:body>
-        <table id="tblDay">
-            <colgroup>
-                <col id="colTimes" span="1"/>
-                <col id="colActivities" span="1"/>
-            </colgroup>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Aktiviteter</th>
-                    <!--                    <th>Mandag</th>
-                                        <th>Tirsdag</th>
-                                        <th>Onsdag</th>
-                                        <th>Torsdag</th>
-                                        <th>Fredag</th>
-                                        <th>Loerdag</th>
-                                        <th>Soendag</th>-->
-                </tr>
-            </thead>
-
-            <tbody id="bodyTblDay">
-                <tr>
-                    <td>
-                        <p>Testtid</p>
-                    </td>
-                    <td >
-                        <!--<div style="position:relative; overflow: auto; height: 100%;">-->
-                            <!--<p>Testtid</p>-->
+    </head>
+    <body>
+        <div id="container">
+            <table id="tblDay">
+                <colgroup>
+                    <col id="colTimes" span="1"/>
+                    <col id="colActivities" span="1"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Aktiviteter</th>
+                        <!--                    <th>Mandag</th>
+                                            <th>Tirsdag</th>
+                                            <th>Onsdag</th>
+                                            <th>Torsdag</th>
+                                            <th>Fredag</th>
+                                            <th>Loerdag</th>
+                                            <th>Soendag</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>Testtid</p>
+                        </td>
+                        <td >
                             <div class="actClass">
-                                Denne div er placeret i forhold til ydre td
+                                Denne div er placeret i forhold til ydre td, ligger bag overlaycontainer
                             </div>
-                        <!--</div>-->
-                    </td>
-                </tr>
-                <!--          style="position:absolute; top:1px; left:1px; background: yellow;"      <tr>
-                                    <td>Testing...</td>
-                                </tr>
-                                <tr>
-                                    <td>Testing... Testing...</td>
-                                </tr>-->
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="containerOverlay">
+                <div class="box">BOX. Nested i overlay div og derfor ovenpå tabellen</div>
+            </div>
+        </div>
+
+
+
+
+
+
         <div id="activitiesContainer">
             #activitiesContainer
             <div class="actClassTest">.actClassTest</div>
         </div>
-    </h:body>
+    </body>
 </html>

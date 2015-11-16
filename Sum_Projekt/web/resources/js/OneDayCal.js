@@ -26,16 +26,19 @@ $(function () {
         html += "<tr><td>";
         html += timesarr[i];
         html += "</td><td>";
-        html += "<div class=\"actClass\">test</div>"; //div som anker til placering af activities
+//        html += "<div class=\"actClass\">test</div>"; //div som anker til placering af activities
         html += "</td></tr>";
     }
     $("tbody").append(html);
+    
+//    var boxhtml = "<div class=\"box\">BOX. Nested i overlay div og derfor ovenpå tabellen</div>";
+    var boxhtml = "<div class=\"box\">SecondBox</div>";
+    $(".containerOverlay").append(boxhtml);
+    $(".containerOverlay div:first").css("top", "300px").css("left", "500px");
+    
     var j;
     for (j = 0; j < actslist.length; j++) {
         console.log(actslist[j].start + ", " + actslist[j].duration + ", " + actslist[j].toString());
-        
-       // var startid = "#div" + actslist[j].start;
-        //console.log("div valgt: " + $(startid));
     }
 });
 
