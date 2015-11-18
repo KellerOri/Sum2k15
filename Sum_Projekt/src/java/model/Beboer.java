@@ -7,8 +7,8 @@ package model;
 
 /**
  *
- * @author Arthur
+ * @author Andromeda
  */
-public interface PersonResource {
+public class Beboer implements PersonResource{
     
 }
