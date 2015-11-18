@@ -12,8 +12,13 @@ package model;
 public class Beboer implements PersonResource{
     
     private String navn;
+    private String noter;
     
     public Beboer() {    
+    }
+
+    public Beboer(String navn) {
+        this.navn = navn;
     }
     public String getNavn() {
         return navn;
@@ -22,4 +27,14 @@ public class Beboer implements PersonResource{
     public void setNavn(String navn) {
         this.navn = navn;
     } 
+    
+    public String getNoter() {
+        return noter;
+    }
+
+    public void setNoter(String noter) {
+        this.noter = noter;
+    }
+    
+    
 }

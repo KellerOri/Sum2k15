@@ -20,10 +20,18 @@
             <h:commandButton value="Dagsseddel" disabled="true">
             </h:commandButton>
         </p>
-        <table border="1" style="width:1000px" align="center">
+        <p:tabView value="#{beboerBean.alleBeboer}" var="beboer" style="width:1800px">
+        <p:tab title="#{beboer.navn}">
+            <h:panelGrid columns="2" cellpadding="5">
+                  <table border="1" style="width:1000px" align="center">
             <tr>
                 <th>Medicin:</th> <th>Noter:</th>
             </tr>
         </table>
+                                   
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+      
     </h:body>
 </html>
