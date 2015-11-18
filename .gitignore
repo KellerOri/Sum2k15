@@ -1,6 +1,7 @@
 /Sum_Projekt/nbproject/private/
 /Sum_Projekt/build/
 /nbproject/private/
+/Sum_Projekt/dist/
 Sum_Projekt/web/WEB-INF/glassfish-web.xml
 /Sum_Projekt/dist/
 build/web/META-INF/MANIFEST.MF
@@ -21,3 +22,4 @@ build/web/WEB-INF/web.xml
 build/web/gfv3ee6.dpf
 build/web/index.xhtml
 build/web/welcomePrimefaces.xhtml
+
