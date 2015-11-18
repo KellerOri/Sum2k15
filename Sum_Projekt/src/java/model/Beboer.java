@@ -11,4 +11,8 @@ package model;
  */
 public class Beboer implements PersonResource{
     
+
+    public Beboer() {
+        
+    }
 }
