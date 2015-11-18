@@ -5,10 +5,18 @@
  */
 package model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Set;
+import org.primefaces.model.DefaultScheduleEvent;
+
 /**
  *
  * @author Andromeda
  */
-public class Aktivitet {
+public class Aktivitet{
+    private DefaultScheduleEvent event;
+    private Set<PersonResource> personresourcer;
+    
     
 }

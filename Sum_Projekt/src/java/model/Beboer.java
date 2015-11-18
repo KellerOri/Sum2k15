@@ -5,17 +5,14 @@
  */
 package model;
 
-
 /**
  *
- * @author Christian
+ * @author Andromeda
  */
-public class Beboer {
+public class Beboer implements PersonResource{
     
 
     public Beboer() {
         
     }
-    
-    
 }
