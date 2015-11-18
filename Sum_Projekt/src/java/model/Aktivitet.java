@@ -33,6 +33,10 @@ public class Aktivitet {
         this.event = new DefaultScheduleEvent();
     }
     
+    public Aktivitet(DefaultScheduleEvent dse){
+        this();
+        this.event = dse;
+    }
     public Aktivitet(Set<PersonResource> personresourcer) {
         this();
         this.personresourcer = personresourcer;
@@ -72,6 +76,11 @@ public class Aktivitet {
     public Date localDateTimetoDate(LocalDateTime ldt){
         Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
         Date res = Date.from(instant);
+        return res;
+    }
+    
+    public String toString(){
+        String res = start + ", " + slut;
         return res;
     }
 }

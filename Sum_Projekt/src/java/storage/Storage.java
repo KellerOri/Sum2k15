@@ -57,6 +57,10 @@ public class Storage {
         this.aktiviteter = aktiviteter;
     }
 
+    public Aktivitet addAktivitet(Aktivitet aktivitet){
+        aktiviteter.add(aktivitet);
+        return aktivitet;
+    }
     public List<Medarbejder> getMedarbejdere() {
         return new ArrayList<>(medarbejdere);
     }
@@ -78,8 +82,10 @@ public class Storage {
     
     public List<Aktivitet> getAktiviteterPaaDag(LocalDate ldt){
         List<Aktivitet> result = new ArrayList<Aktivitet>();
+        System.out.println("Storage " + aktiviteter.size());
         for(Aktivitet a : aktiviteter){
-            if(a.getStart().toLocalDate().equals(ldt)){
+            System.out.println(a);
+            if(a.getStart()!=null && a.getStart().toLocalDate().equals(ldt)){
                 result.add(a);
             }
         }

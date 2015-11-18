@@ -34,6 +34,12 @@ public class Service implements Serializable{
     }
     
     public void addAktivitet(DefaultScheduleEvent event){
+        Aktivitet a = new Aktivitet(event);
+        storage.addAktivitet(a);
+    }
+    
+    public void addAktivitet(Aktivitet aktivitet){
+        storage.addAktivitet(aktivitet);
     }
     
     public Beboer addBeboer(String navn){
@@ -81,6 +87,7 @@ public class Service implements Serializable{
         a1.addRessource(m1);
         a1.setStartdato(LocalDateTime.now());
         a1.setSlutdato(LocalDateTime.now().plusHours(4));
+        addAktivitet(a1);
         
         Aktivitet a2 = new Aktivitet();
         a2.addRessource(b2);
