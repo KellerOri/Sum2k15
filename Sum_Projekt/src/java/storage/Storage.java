@@ -5,6 +5,8 @@
  */
 package storage;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import model.Aktivitet;
@@ -19,10 +21,15 @@ public class Storage {
     private List<Medarbejder> medarbejdere;
     private List<Resource> resourcer;
     private static Storage instance;
-    
-    private Storage(){
-        
+
+    private Storage() {
+        beboere = new ArrayList<Beboer>();
+        aktiviteter = new ArrayList<Aktivitet>();
+        medarbejdere = new ArrayList<Medarbejder>();
+        resourcer = new ArrayList<Resource>();
     }
+    
+    
     
     public static Storage getInstance(){
         if (instance == null){
@@ -67,6 +74,16 @@ public class Storage {
 
     public void setRessourcer(List<Resource> ressourcer) {
         this.resourcer = ressourcer;
+    }
+    
+    public List<Aktivitet> getAktiviteterPaaDag(LocalDate ldt){
+        List<Aktivitet> result = new ArrayList<Aktivitet>();
+        for(Aktivitet a : aktiviteter){
+            if(a.getStart().toLocalDate().equals(ldt)){
+                result.add(a);
+            }
+        }
+        return result;
     }
     
    public List<PersonResource> getPersonResourcer(){

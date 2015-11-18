@@ -6,6 +6,8 @@
 package service;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -20,7 +22,7 @@ import storage.Storage;
 @Named
 @SessionScoped
 public class Service implements Serializable{
-    private Storage storage;
+    private final Storage storage;
     
     public Service(){
         storage = Storage.getInstance();    
@@ -34,10 +36,11 @@ public class Service implements Serializable{
     public void addAktivitet(DefaultScheduleEvent event){
     }
     
-    public void addBeboer(String navn){
+    public Beboer addBeboer(String navn){
         Beboer b = new Beboer();
         b.setNavn(navn);
         storage.addBeboer(b);
+        return b;
     }
     
     public List<Beboer> getBeboere(){
@@ -48,9 +51,11 @@ public class Service implements Serializable{
         return storage.getMedarbejdere();
     }
     
-    public void addMedarbejder(String navn){
+    public Medarbejder addMedarbejder(String navn){
         Medarbejder m = new Medarbejder();
         m.setNavn(navn);
+        storage.addMedarbejder(m);
+        return m;
     }
     public List<Resource> getResourcer(){
         return storage.getResourcer();
@@ -60,13 +65,27 @@ public class Service implements Serializable{
         return storage.getPersonResourcer();
     }
     
+    public List<Aktivitet> getAktiviterPaaDag(LocalDate ldt){
+        return storage.getAktiviteterPaaDag(ldt);
+    }
+            
     private void initStorage(){
-        addBeboer("Alice");
-        addBeboer("Bob");
+        Beboer b1 = addBeboer("Alice");
+        Beboer b2 = addBeboer("Bob");
         
-        addMedarbejder("Anette");
-        addMedarbejder("Louise");
+        Medarbejder m1 = addMedarbejder("Anette");
+        Medarbejder m2 = addMedarbejder("Louise");
         
+        Aktivitet a1 = new Aktivitet();
+        a1.addRessource(b1);
+        a1.addRessource(m1);
+        a1.setStartdato(LocalDateTime.now());
+        a1.setSlutdato(LocalDateTime.now().plusHours(4));
         
+        Aktivitet a2 = new Aktivitet();
+        a2.addRessource(b2);
+        a2.addRessource(m2);
+        a2.setStartdato(LocalDateTime.now().plusHours(2));
+        a2.setSlutdato(LocalDateTime.now().plusHours(4));
     }
 }
