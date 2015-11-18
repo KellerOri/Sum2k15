@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>CSSgrid</title>
+        <link rel="stylesheet" type="text/css" href="resources/css/CSSgrid.css"/>
+    </head>
+    <body>
+        <div id="container">
+            <section id="table">
+                <div class="col-1"></div>
+                <div class="col-2"></div>
+                <div class="row-1" >
+                    <div class="cell">c1r1</div>
+                    <div class="cell">c2r1</div>
+                    <div class="cell">c3r1</div>
+                </div>
+                <div class="row-2">
+                    <div class="cell">C1R2</div>
+                    <div class="cell">C2R2</div>
+                    <div class="cell">C3R2</div>
+                </div>
+                <div class="row-2">
+                    <div class="cell">C1R2</div>
+                    <div class="cell">C2R2</div>
+                    <div class="cell">C3R2</div>
+                </div>
+                <div class="row-2">
+                    <div class="cell">C1R2</div>
+                    <div class="cell">C2R2</div>
+                    <div class="cell">C3R2</div>
+                </div>
+                <div class="row-2">
+                    <div class="cell">C1R2</div>
+                    <div class="cell">C2R2</div>
+                    <div class="cell">C3R2</div>
+                </div>
+                <div class="row-2">
+                    <div class="cell">C1R2</div>
+                    <div class="cell">C2R2</div>
+                    <div class="cell">C3R2</div>
+                </div>
+                <div class="row-2">
+                    <div class="cell">C1R2</div>
+                    <div class="cell">C2R2</div>
+                    <div class="cell">C3R2</div>
+                </div>
+                <div class="row-2">
+                    <div class="cell">C1R2</div>
+                    <div class="cell">C2R2</div>
+                    <div class="cell">C3R2</div>
+                </div>
+            </section>
+            <div class="box">BOX</div>
+        </div>
+    </body>
+</html>
+<!--
+display: table                /* <table>     */
+display: table-cell           /* <td>        */
+display: table-row            /* <tr>        */
+display: table-column         /* <col>       */
+display: table-column-group   /* <colgroup>  */
+display: table-footer-group   /* <tfoot>     */
+display: table-header-group   /* <thead>     */
+
+table-layout: auto is the default. The width of the table and its cells depends on the content inside. If you change this to fixed, the table and column widths are set by the widths of table and col elements or by the width of the first row of cells. Cells in subsequent rows do not affect column widths, which can speed up rendering. If content in subsequent cells can't fit, the overflow property determines what happens.
+
+-->
