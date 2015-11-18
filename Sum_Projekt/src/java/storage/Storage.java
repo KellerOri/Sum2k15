@@ -39,6 +39,9 @@ public class Storage {
         this.beboere = beboerer;
     }
 
+    public void addBeboer(Beboer beboer){
+        beboere.add(beboer);
+    }
     public List<Aktivitet> getAktiviteter() {
         return new ArrayList<>(aktiviteter);
     }
@@ -55,6 +58,9 @@ public class Storage {
         this.medarbejdere = medarbejdere;
     }
 
+    public void addMedarbejder(Medarbejder m){
+        medarbejdere.add(m);
+    }
     public List<Resource> getResourcer() {
         return new ArrayList<>(resourcer);
     }

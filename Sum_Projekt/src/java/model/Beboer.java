@@ -10,9 +10,15 @@ package model;
  * @author Andromeda
  */
 public class Beboer implements PersonResource{
-    
-
+    private String navn;
     public Beboer() {
         
     }
+    public String getNavn() {
+        return navn;
+    }
+
+    public void setNavn(String navn) {
+        this.navn = navn;
+    } 
 }

@@ -10,5 +10,15 @@ package model;
  * @author Andromeda
  */
 public class Medarbejder implements PersonResource{
+    private String navn;
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+    
     
 }

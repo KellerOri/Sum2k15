@@ -24,6 +24,7 @@ public class Service implements Serializable{
     
     public Service(){
         storage = Storage.getInstance();    
+        initStorage();
     }
     
     public List<Aktivitet> getAktiviteter(){
@@ -31,6 +32,12 @@ public class Service implements Serializable{
     }
     
     public void addAktivitet(DefaultScheduleEvent event){
+    }
+    
+    public void addBeboer(String navn){
+        Beboer b = new Beboer();
+        b.setNavn(navn);
+        storage.addBeboer(b);
     }
     
     public List<Beboer> getBeboere(){
@@ -41,11 +48,25 @@ public class Service implements Serializable{
         return storage.getMedarbejdere();
     }
     
+    public void addMedarbejder(String navn){
+        Medarbejder m = new Medarbejder();
+        m.setNavn(navn);
+    }
     public List<Resource> getResourcer(){
         return storage.getResourcer();
     }
     
     public List<PersonResource> getPersonResourcer(){
         return storage.getPersonResourcer();
+    }
+    
+    private void initStorage(){
+        addBeboer("Alice");
+        addBeboer("Bob");
+        
+        addMedarbejder("Anette");
+        addMedarbejder("Louise");
+        
+        
     }
 }
