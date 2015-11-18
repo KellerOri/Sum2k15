@@ -7,22 +7,18 @@
     <h:head>
         <f:facet name="first">
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            <title>Calendar</title>
+            <title>Dagsseddel</title>
         </f:facet>
     </h:head>
     <h:body>
         <h1 align="center">
-            Kalender
+            Dagsseddel
         </h1>
         <p align="center">
-        <h:commandButton value="Kalender" disabled="true">
-        </h:commandButton>
-        <h:commandButton value="Dagsseddel" onclick="location.href='dagsseddel.xhtml'">
-        </h:commandButton>
-    </p>
-    <h:form>
-        <p:schedule value="#{scheduleView.eventModel}">
-        </p:schedule>
-    </h:form>
-</h:body>
+            <h:commandButton value="Kalender"  onclick="location.href='schedule.xhtml'">
+            </h:commandButton>
+            <h:commandButton value="Dagsseddel" disabled="true">
+            </h:commandButton>
+        </p>
+    </h:body>
 </html>
