@@ -22,25 +22,25 @@ public class BeboerBean implements Serializable {
 //    @Inject
 //    private service.Service service;-- ved ikke om det skal bruges
     private Beboer beboer = new Beboer();
-    private List<Beboer> alleBeboer;
+//    private List<Beboer> alleBeboer;
     
     public Beboer getBeboer(){
         return beboer;
     }
     
-    @PostConstruct 
-    public void init() {
-        alleBeboer = new ArrayList<Beboer>();
-        alleBeboer.add(new Beboer("Anne"));
-        alleBeboer.add(new Beboer("Bjørn"));
-        alleBeboer.add(new Beboer("Niels"));
-        alleBeboer.add(new Beboer("Rikke"));
-        
-    }
+//    @PostConstruct 
+//    public void init() {
+//        alleBeboer = new ArrayList<Beboer>();
+//        alleBeboer.add(new Beboer("Anne"));
+//        alleBeboer.add(new Beboer("Bjørn"));
+//        alleBeboer.add(new Beboer("Niels"));
+//        alleBeboer.add(new Beboer("Rikke"));
+//        
+//    }
     
-    public List<Beboer> getAlleBeboer() {
-        return alleBeboer;
-    }
+//    public List<Beboer> getAlleBeboer() {
+//        return alleBeboer;
+//    }
     
      public void onTabChange(TabChangeEvent event) {
         FacesMessage msg = new FacesMessage("Tab Changed", "Active Tab: " + event.getTab().getTitle());

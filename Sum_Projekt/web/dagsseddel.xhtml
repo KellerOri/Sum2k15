@@ -15,23 +15,29 @@
             Dagsseddel
         </h1>
         <p align="center">
-            <h:commandButton value="Kalender"  onclick="location.href='schedule.xhtml'">
-            </h:commandButton>
-            <h:commandButton value="Dagsseddel" disabled="true">
-            </h:commandButton>
-        </p>
-        <p:tabView value="#{beboerBean.alleBeboer}" var="beboer" style="width:1800px">
+        <h:commandButton value="Kalender"  onclick="location.href = 'schedule.xhtml'">
+        </h:commandButton>
+        <h:commandButton value="Dagsseddel" disabled="true">
+        </h:commandButton>
+    </p>
+    <p:tabView value="#{service.getBeboere()}" var="beboer" style="width:1800px">
         <p:tab title="#{beboer.navn}">
             <h:panelGrid columns="2" cellpadding="5">
-                  <table border="1" style="width:1000px" align="center">
-            <tr>
-                <th>Medicin:</th> <th>Noter:</th>
-            </tr>
-        </table>
-                                   
+                <h1 id="dato">#{service.today}</h1>
+                <table border="1" style="width:1000px" align="center">
+                    <tr>
+                        <th>Medicin:</th> <th>Noter:</th>
+
+                    </tr>
+                    <tr>
+                        <td>her skal der stå medicin</td><td>#{service.getNoteBeboerDag(beboer)}</td>
+                    </tr>
+                </table>
+
             </h:panelGrid>
         </p:tab>
     </p:tabView>
-      
-    </h:body>
+
+</h:body>
+
 </html>
