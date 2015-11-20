@@ -23,20 +23,16 @@ import org.primefaces.model.DefaultScheduleEvent;
  */
 public class Aktivitet {
 
-    private DefaultScheduleEvent event;
     private Set<PersonResource> personresourcer;
     private LocalDateTime start;
     private LocalDateTime slut;
-
+    private String beskrivelse;
+    private String titel;
+    
     public Aktivitet() {
         personresourcer = new HashSet<PersonResource>();
-        this.event = new DefaultScheduleEvent();
     }
     
-    public Aktivitet(DefaultScheduleEvent dse){
-        this();
-        this.event = dse;
-    }
     public Aktivitet(Set<PersonResource> personresourcer) {
         this();
         this.personresourcer = personresourcer;
@@ -60,25 +56,36 @@ public class Aktivitet {
     
     public void setStartdato(LocalDateTime start) {
         this.start = start;
-        event.setStartDate(localDateTimetoDate(start));
     }
 
     public void setSlutdato(LocalDateTime slut) {
         this.slut = slut;
-        event.setEndDate(localDateTimetoDate(slut));
     }
 
-    public LocalDateTime dateToLocalDate(Date date) {
-        Instant instant = Instant.ofEpochMilli(date.getTime());
-        LocalDateTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-        return res;
+    public Set<PersonResource> getPersonresourcer() {
+        return personresourcer;
     }
-    public Date localDateTimetoDate(LocalDateTime ldt){
-        Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
-        Date res = Date.from(instant);
-        return res;
+
+    public void setPersonresourcer(Set<PersonResource> personresourcer) {
+        this.personresourcer = personresourcer;
     }
-    
+
+    public String getBeskrivelse() {
+        return beskrivelse;
+    }
+
+    public void setBeskrivelse(String beskrivelse) {
+        this.beskrivelse = beskrivelse;
+    }
+
+    public String getTitel() {
+        return titel;
+    }
+
+    public void setTitel(String titel) {
+        this.titel = titel;
+    }
+  
     public String toString(){
         String res = start + ", " + slut;
         return res;

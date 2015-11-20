@@ -6,10 +6,13 @@
 package service;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -32,10 +35,10 @@ public class Service implements Serializable {
         return storage.getAktiviteter();
     }
 
-    public void addAktivitet(DefaultScheduleEvent event) {
-        Aktivitet a = new Aktivitet(event);
-        storage.addAktivitet(a);
-    }
+//    public void addAktivitet(DefaultScheduleEvent event) {
+//        Aktivitet a = new Aktivitet(event);
+//        storage.addAktivitet(a);
+//    }
 
     public void addAktivitet(Aktivitet aktivitet) {
         storage.addAktivitet(aktivitet);
@@ -94,6 +97,16 @@ public class Service implements Serializable {
 
         }
         return toReturn;
+    }
+    public LocalDateTime dateToLocalDate(Date date) {
+        Instant instant = Instant.ofEpochMilli(date.getTime());
+        LocalDateTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        return res;
+    }
+    public Date localDateTimetoDate(LocalDateTime ldt){
+        Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
+        Date res = Date.from(instant);
+        return res;
     }
     
     // midlertidig løsning
