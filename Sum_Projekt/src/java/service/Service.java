@@ -85,39 +85,43 @@ public class Service implements Serializable {
         return storage.getAktiviteterPaaDag(ldt);
     }
 
+    public LocalDateTime dateToLocalDate(Date date) {
+        Instant instant = Instant.ofEpochMilli(date.getTime());
+        LocalDateTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        return res;
+    }
+
+    public Date localDateTimetoDate(LocalDateTime ldt) {
+        Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
+        Date res = Date.from(instant);
+        return res;
+    }
+    
+
     public Note addNote(Beboer beboer, LocalDate dag, String indhold) {
         Note n = new Note(beboer, dag, indhold);
         storage.addNote(n);
         return n;
     }
 
-    // skal også tage dag med som parameter
-    public String getNoteBeboerDag(Beboer beboer) {
+    public String getNoteBeboerDag(Beboer beboer, Date dag) {
 
         String toReturn = "Nothing!";
         List<Note> ner = storage.getNoter();
 
         for (Note n : ner) {
-            if (n.getBeboer().equals(beboer)) {
+            LocalDateTime d = dateToLocalDate(dag);
+            LocalDate datedag = LocalDate.of(d.getYear(), d.getMonth(), d.getDayOfMonth());
+            if (n.getBeboer().equals(beboer) && datedag.equals(n.getDag())) {
                 toReturn = n.getIndhold();
             }
 
         }
         return toReturn;
     }
-    public LocalDateTime dateToLocalDate(Date date) {
-        Instant instant = Instant.ofEpochMilli(date.getTime());
-        LocalDateTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-        return res;
-    }
-    public Date localDateTimetoDate(LocalDateTime ldt){
-        Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
-        Date res = Date.from(instant);
-        return res;
-    }
-    
+
     // midlertidig løsning
-    public String getToday(){
-       return LocalDate.now().toString();
+    public String getToday() {
+        return LocalDate.now().toString();
     }
 }
