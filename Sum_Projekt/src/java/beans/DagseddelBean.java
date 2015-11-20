@@ -6,7 +6,11 @@
 package beans;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -18,17 +22,24 @@ import javax.inject.Named;
 @SessionScoped
 public class DagseddelBean implements Serializable {
     
-    private LocalDate aktuelDag;
+    private Date aktuelDag;
+    
+    public Date localDatetoDate(LocalDateTime ldt){
+        Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
+        Date res = Date.from(instant);
+        return res;
+    }
+    
+    public DagseddelBean(){
+        aktuelDag = localDatetoDate(LocalDateTime.now());
+    }
 
-    public String getAktuelDag() {
-        if(aktuelDag == null){
-            aktuelDag = LocalDate.now();
-        }
-        return aktuelDag.toString();
+    public Date getAktuelDag() {
+        return aktuelDag;
     }
     
 
-    public void setAktuelDag(LocalDate aktuelDag) {
+    public void setAktuelDag(Date aktuelDag) {
         this.aktuelDag = aktuelDag;
     }
     

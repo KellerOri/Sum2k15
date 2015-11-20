@@ -7,6 +7,7 @@
     <h:head>
         <f:facet name="first">
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <h:outputStylesheet library="css" name="style.css"/>
             <title>Dagsseddel</title>
         </f:facet>
     </h:head>
@@ -22,8 +23,10 @@
     </p>
     <p:tabView value="#{service.getBeboere()}" var="beboer" style="width:1800px">
         <p:tab title="#{beboer.navn}">
+                <div id="datepicker">
+                    <p:calendar id="button" value="#{dagseddelBean.aktuelDag}" showOn="button" locale="da" />
+                </div>
             <h:panelGrid columns="2" cellpadding="5">
-                <h1 id="dato">#{service.today}</h1>
                 <table border="1" style="width:1000px" align="center">
                     <tr>
                         <th>Medicin:</th> <th>Noter:</th>
