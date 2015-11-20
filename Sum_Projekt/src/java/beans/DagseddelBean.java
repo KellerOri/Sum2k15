@@ -13,6 +13,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import service.Service;
 
 /**
  *
@@ -23,15 +24,12 @@ import javax.inject.Named;
 public class DagseddelBean implements Serializable {
     
     private Date aktuelDag;
+    private Service service;
     
-    public Date localDatetoDate(LocalDateTime ldt){
-        Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
-        Date res = Date.from(instant);
-        return res;
-    }
     
     public DagseddelBean(){
-        aktuelDag = localDatetoDate(LocalDateTime.now());
+        service = new Service();
+        aktuelDag = service.localDateTimetoDate(LocalDateTime.now());
     }
 
     public Date getAktuelDag() {

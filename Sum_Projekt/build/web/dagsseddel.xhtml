@@ -23,9 +23,13 @@
     </p>
     <p:tabView value="#{service.getBeboere()}" var="beboer" style="width:1800px">
         <p:tab title="#{beboer.navn}">
+            <h:form prependId="false">
                 <div id="datepicker">
-                    <p:calendar id="button" value="#{dagseddelBean.aktuelDag}" showOn="button" locale="da" />
+                    <p:commandButton id="leftArrow" icon="ui-icon-carat-1-w" />
+                    <p:calendar id="calendar" value="#{dagseddelBean.aktuelDag}" locale="da" />
+                    <p:commandButton id="rightArrow" icon="ui-icon-carat-1-e"/>
                 </div>
+            </h:form>
             <h:panelGrid columns="2" cellpadding="5">
                 <table border="1" style="width:1000px" align="center">
                     <tr>
