@@ -31,6 +31,7 @@ public class Storage {
         medarbejdere = new ArrayList<Medarbejder>();
         resourcer = new ArrayList<Resource>();
         noter = new ArrayList<Note>();
+        initStorage();
     }
 
     public static Storage getInstance() {
@@ -48,8 +49,9 @@ public class Storage {
         this.beboere = beboerer;
     }
 
-    public void addBeboer(Beboer beboer) {
+    public Beboer addBeboer(Beboer beboer) {
         beboere.add(beboer);
+        return beboer;
     }
 
     public List<Aktivitet> getAktiviteter() {
@@ -73,8 +75,9 @@ public class Storage {
         this.medarbejdere = medarbejdere;
     }
 
-    public void addMedarbejder(Medarbejder m) {
+    public Medarbejder addMedarbejder(Medarbejder m) {
         medarbejdere.add(m);
+        return m;
     }
 
     public List<Resource> getResourcer() {
@@ -112,5 +115,35 @@ public class Storage {
         temp.addAll(getResourcer());
         return temp;
     }
+    
+    private void initStorage() {
+        System.out.println("init()");
+        
+        Beboer b1 = addBeboer(new Beboer("Alice"));
+        Beboer b2 = addBeboer(new Beboer("Bob"));
 
+        Medarbejder m1 = addMedarbejder(new Medarbejder("Anette"));
+        Medarbejder m2 = addMedarbejder(new Medarbejder("Louise"));
+
+        Aktivitet a1 = new Aktivitet();
+        a1.addPersonRessource(b1);
+        a1.addPersonRessource(m1);
+        a1.setStartdato(LocalDateTime.now());
+        a1.setSlutdato(LocalDateTime.now().plusHours(4));
+        a1.setTitel("Bjerge");
+        a1.setBeskrivelse("Jaer. Og gud sagde Moses Moses!");
+        addAktivitet(a1);
+
+        Aktivitet a2 = new Aktivitet();
+        a2.addPersonRessource(b2);
+        a2.addPersonRessource(m2);
+        a2.setStartdato(LocalDateTime.now().plusHours(2));
+        a2.setSlutdato(LocalDateTime.now().plusHours(4));
+        a2.setTitel("Bostøtte");
+        a2.setBeskrivelse("Ugentlig");
+        addAktivitet(a2);
+        
+        Note n = new Note(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
+        addNote(n);
+    }
 }

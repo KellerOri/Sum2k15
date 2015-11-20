@@ -12,6 +12,14 @@ package model;
 public class Medarbejder implements PersonResource{
     private String navn;
 
+    public Medarbejder() {
+    }
+
+    public Medarbejder(String navn) {
+        this.navn = navn;
+    }
+
+    
     public String getNavn() {
         return navn;
     }

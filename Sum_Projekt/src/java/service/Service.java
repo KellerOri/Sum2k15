@@ -28,7 +28,6 @@ public class Service implements Serializable {
 
     public Service() {
         storage = Storage.getInstance();
-        initStorage();
     }
 
     public List<Aktivitet> getAktiviteter() {
@@ -44,6 +43,14 @@ public class Service implements Serializable {
         storage.addAktivitet(aktivitet);
     }
 
+    public void addAktivitet(String title, Date start, Date slut){
+        Aktivitet a = new Aktivitet();
+        a.setTitel(title);
+        a.setStartdato(dateToLocalDate(start));
+        a.setSlutdato(dateToLocalDate(slut));
+        addAktivitet(a);
+    }
+    
     public Beboer addBeboer(String navn) {
         Beboer b = new Beboer();
         b.setNavn(navn);
@@ -112,29 +119,5 @@ public class Service implements Serializable {
     // midlertidig løsning
     public String getToday(){
        return LocalDate.now().toString();
-    }
-
-    private void initStorage() {
-        Beboer b1 = addBeboer("Alice");
-        Beboer b2 = addBeboer("Bob");
-
-        Medarbejder m1 = addMedarbejder("Anette");
-        Medarbejder m2 = addMedarbejder("Louise");
-
-        Aktivitet a1 = new Aktivitet();
-        a1.addRessource(b1);
-        a1.addRessource(m1);
-        a1.setStartdato(LocalDateTime.now());
-        a1.setSlutdato(LocalDateTime.now().plusHours(4));
-        addAktivitet(a1);
-
-        Aktivitet a2 = new Aktivitet();
-        a2.addRessource(b2);
-        a2.addRessource(m2);
-        a2.setStartdato(LocalDateTime.now().plusHours(2));
-        a2.setSlutdato(LocalDateTime.now().plusHours(4));
-
-        Note n1 = addNote(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
-
     }
 }

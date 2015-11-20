@@ -5,17 +5,11 @@
  */
 package model;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.primefaces.model.DefaultScheduleEvent;
 
 /**
  *
@@ -38,7 +32,7 @@ public class Aktivitet {
         this.personresourcer = personresourcer;
     }
 
-    public void addRessource(PersonResource pr) {
+    public void addPersonRessource(PersonResource pr) {
         personresourcer.add(pr);
     }
 
@@ -87,7 +81,6 @@ public class Aktivitet {
     }
   
     public String toString(){
-        String res = start + ", " + slut;
-        return res;
+        return titel + ": " + beskrivelse;
     }
 }
