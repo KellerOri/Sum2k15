@@ -7,6 +7,7 @@ package storage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import model.Aktivitet;
@@ -142,6 +143,24 @@ public class Storage {
         a2.setTitel("Bostøtte");
         a2.setBeskrivelse("Ugentlig");
         addAktivitet(a2);
+        
+        Aktivitet a3 = new Aktivitet();
+        a3.addPersonRessource(b1);
+        a3.addPersonRessource(m2);
+        a3.setTitel("Ugesamtale");
+        a3.setBeskrivelse("Emner: stemmehøring, familie");
+        a3.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 15)));
+        a3.setSlutdato(a3.getStart().plusDays(1));
+        addAktivitet(a3);
+        
+        Aktivitet a4 = new Aktivitet();
+        a4.addPersonRessource(m1);
+        a4.addPersonRessource(m2);
+        a4.setTitel("Møde");
+        a4.setBeskrivelse("Statusmøde Alice");
+        a4.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(16, 30)));
+        a4.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(17, 30)));
+        addAktivitet(a4);
         
         Note n = new Note(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
         addNote(n);
