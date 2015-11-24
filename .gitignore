@@ -1,3 +1,8 @@
-Sum_Projekt/build/web/WEB-INF/classes/beans/CalendarView.class
-Sum_Projekt/nbproject/private/private.properties
-Sum_Projekt/nbproject/private/private.xml
+
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
