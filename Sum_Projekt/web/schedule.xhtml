@@ -7,7 +7,7 @@
     <h:head>
         <f:facet name="first">
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            <title>Calendar</title>
+            <title>Kalender</title>
         </f:facet>
     </h:head>
     <h:body>
@@ -20,6 +20,58 @@
         <h:commandButton value="Dagsseddel" onclick="location.href = 'dagsseddel.xhtml'">
         </h:commandButton>
     </p>
+     <table align="center" >
+        <tr>
+            <td>
+        <h:dataTable border="1" value="#{service.medarbejdere}"  var="medarbejder" style="width:350px">
+        <h:column headerClass="header" >
+                  <f:facet name ="header">Medarbejder</f:facet>
+                  
+                  #{medarbejder.navn}
+                  
+                        <h:selectBooleanCheckbox>
+            <f:ajax/>
+        </h:selectBooleanCheckbox>
+                           
+              </h:column>      
+    
+     </h:dataTable>
+    </td>
+    <td>
+    <h:dataTable border="1" value="#{service.beboere}"  var="beboer" style="width:350px">
+          
+        <h:column headerClass="header">
+                  <f:facet name ="header">Beboer</f:facet>
+                  
+                  #{beboer.navn}
+                  <h:selectBooleanCheckbox>
+            <f:ajax/>
+        </h:selectBooleanCheckbox>
+                           
+              </h:column>
+        
+          </h:dataTable>
+    </td>
+    <td>
+        <h:dataTable border="1" value="" var="ressourcer" style="width:350px">
+        <h:column headerClass="header" >
+                  <f:facet name ="header">Ressourcer</f:facet>
+                  
+                  
+                  
+                        <h:selectBooleanCheckbox>
+            <f:ajax/>
+        </h:selectBooleanCheckbox>
+                           
+              </h:column>      
+    
+     </h:dataTable>
+        
+    </td>
+    </tr>
+    </table>
+
+    <p> &nbsp; </p>
     <h:form>
         <p:schedule value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
             <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
