@@ -1,8 +1,8 @@
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-.nb-gradle/
+Sum_Projekt/nbproject/private/
+Sum_Projekt/build/
+Sum_Projekt/nbbuild/
+Sum_Projekt/dist/
+Sum_Projekt/nbdist/
+Sum_Projekt/nbactions.xml
+Sum_Projekt/.nb-gradle/
 
