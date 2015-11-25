@@ -246,18 +246,7 @@ public class ScheduleView implements Serializable {
  
     public void updateCalendar(AjaxBehaviorEvent event) throws AbortProcessingException {
 	
-        for(ScheduleEvent se:eventModel.getEvents()){
         
-            Aktivitet a = (Aktivitet) se.getData();
-            
-            for(PersonResource ps :a.getPersonresourcer()){
-              
-            }
-       for(Medarbejder m :selectedMedarbejdere){
-           
-       }
-        
-        }
         
         System.out.println("event: " + event.getComponent());}
 
