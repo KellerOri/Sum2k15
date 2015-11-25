@@ -34,7 +34,6 @@ public class Beboer implements PersonResource{
 
     public void setNoter(String noter) {
         this.noter = noter;
-    }
-    
+    }  
     
 }
