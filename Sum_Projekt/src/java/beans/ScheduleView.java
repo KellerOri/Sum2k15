@@ -17,7 +17,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import model.Aktivitet;
 import model.Beboer;
@@ -62,7 +64,9 @@ public class ScheduleView implements Serializable {
     }
 
     public void setSelectedMedarbejdere(List<Medarbejder> selectedMedarbejdere) {
+        
         this.selectedMedarbejdere = selectedMedarbejdere;
+ 
     }
 
     public List<Beboer> getSelectedBeboere() {
@@ -233,9 +237,29 @@ public class ScheduleView implements Serializable {
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         System.out.println(aktiviteter.size());
         for (Aktivitet a : aktiviteter) {
-//            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
             eventModel.addEvent(new DefaultScheduleEvent(a.toString(),
-                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut())));
+                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a));
         }
     }
+    
+ 
+ 
+    public void updateCalendar(AjaxBehaviorEvent event) throws AbortProcessingException {
+	
+        for(ScheduleEvent se:eventModel.getEvents()){
+        
+            Aktivitet a = (Aktivitet) se.getData();
+            
+            for(PersonResource ps :a.getPersonresourcer()){
+              
+            }
+       for(Medarbejder m :selectedMedarbejdere){
+           
+       }
+        
+        }
+        
+        System.out.println("event: " + event.getComponent());}
+
+	
 }

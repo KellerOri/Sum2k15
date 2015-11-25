@@ -36,9 +36,9 @@ public class Aktivitet {
         personresourcer.add(pr);
     }
 
-    public List<PersonResource> getPersonResourcer() {
-        return new ArrayList<PersonResource>(personresourcer);
-    }
+//    public List<PersonResource> getPersonResourcer() {
+//        return new ArrayList<PersonResource>(personresourcer);
+//    }
 
     public LocalDateTime getStart() {
         return start;

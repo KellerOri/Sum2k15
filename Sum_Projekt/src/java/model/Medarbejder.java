@@ -28,5 +28,9 @@ public class Medarbejder implements PersonResource{
         this.navn = navn;
     }
     
+    public String getType(){
+        return "Medarbejder";
+    }
+    
     
 }
