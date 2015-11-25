@@ -10,5 +10,5 @@ package model;
  * @author Andromeda
  */
 public class Resource implements PersonResource{
-    
+   
 }

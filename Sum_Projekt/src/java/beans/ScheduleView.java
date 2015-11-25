@@ -5,8 +5,10 @@
  */
 package beans;
 
+import com.sun.javafx.scene.control.SelectedCellsMap;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +20,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import model.Aktivitet;
+import model.Beboer;
+import model.Medarbejder;
+import model.PersonResource;
+import model.Resource;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -40,16 +46,42 @@ public class ScheduleView implements Serializable {
     
     private ScheduleEvent event = new DefaultScheduleEvent();
     
+    private List<Medarbejder> selectedMedarbejdere;
+    private List<Beboer> selectedBeboere;
+    private List<Resource> selectedResourcer;
+    
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
+  
         loadEvents();
-//        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-//        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-//        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
-//        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm())); 
     }
-    
+
+    public List<Medarbejder> getSelectedMedarbejdere() {
+        return selectedMedarbejdere;
+    }
+
+    public void setSelectedMedarbejdere(List<Medarbejder> selectedMedarbejdere) {
+        this.selectedMedarbejdere = selectedMedarbejdere;
+    }
+
+    public List<Beboer> getSelectedBeboere() {
+        return selectedBeboere;
+    }
+
+    public void setSelectedBeboere(List<Beboer> selectedBeboere) {
+        this.selectedBeboere = selectedBeboere;
+    }
+
+    public List<Resource> getSelectedResourcer() {
+        return selectedResourcer;
+    }
+
+    public void setSelectedResourcer(List<Resource> selectedResourcer) {
+        this.selectedResourcer = selectedResourcer;
+    }
+
+
     public Date getRandomDate(Date base) {
         Calendar date = Calendar.getInstance();
         date.setTime(base);

@@ -7,11 +7,26 @@ and open the template in the editor.
     Created on : Nov 20, 2015, 9:39:17 AM
     Author     : Christian
 */
+
+*{
+    box-sizing: border-box;
+}
 #datepicker {
     margin:auto;
     width: 44%;
 }
 [id="j_idt11:0:calendar"] {
     padding: 15px;
+}
+#scheduleconainer{
+
+}
+#filtercontainer{
+    float: left;
+    width: 25%;
+}
+#calcontainer{
+    float: right;
+    width: 75%;
 }
 

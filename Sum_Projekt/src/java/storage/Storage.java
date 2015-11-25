@@ -122,9 +122,14 @@ public class Storage {
         
         Beboer b1 = addBeboer(new Beboer("Alice"));
         Beboer b2 = addBeboer(new Beboer("Bob"));
+        Beboer b3 = addBeboer(new Beboer("Merete"));
+        Beboer b4 = addBeboer(new Beboer("Lis"));
+        Beboer b5 = addBeboer(new Beboer("Ralf"));
 
         Medarbejder m1 = addMedarbejder(new Medarbejder("Anette"));
         Medarbejder m2 = addMedarbejder(new Medarbejder("Louise"));
+        
+        Resource r1 = new Resource();
 
         Aktivitet a1 = new Aktivitet();
         a1.addPersonRessource(b1);
@@ -164,5 +169,6 @@ public class Storage {
         
         Note n = new Note(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
         addNote(n);
+        
     }
 }
