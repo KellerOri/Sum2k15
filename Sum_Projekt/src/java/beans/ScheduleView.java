@@ -188,6 +188,14 @@ public class ScheduleView implements Serializable {
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
+//    private void hasBil(){     
+//        for (ScheduleEvent event : eventModel.getEvents()){
+//            event.getData()          
+//            
+//        }
+//    }
+
 
     private void loadEvents() {
         List<Aktivitet> aktiviteter = service.getAktiviteter();
@@ -195,7 +203,7 @@ public class ScheduleView implements Serializable {
         for(Aktivitet a : aktiviteter){
 //            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
             eventModel.addEvent(new DefaultScheduleEvent(a.toString(), 
-                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut())));
+                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a));
         }
     }
 }
