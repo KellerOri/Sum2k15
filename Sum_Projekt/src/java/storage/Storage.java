@@ -132,7 +132,7 @@ public class Storage {
         a1.setStartdato(LocalDateTime.now());
         a1.setSlutdato(LocalDateTime.now().plusHours(4));
         a1.setTitel("Bjerge");
-        a1.setBeskrivelse("Jaer. Og gud sagde Moses Moses!");
+        a1.setNote("Jaer. Og gud sagde Moses Moses!");
         addAktivitet(a1);
 
         Aktivitet a2 = new Aktivitet();
@@ -141,14 +141,14 @@ public class Storage {
         a2.setStartdato(LocalDateTime.now().plusHours(2));
         a2.setSlutdato(LocalDateTime.now().plusHours(4));
         a2.setTitel("Bostøtte");
-        a2.setBeskrivelse("Ugentlig");
+        a2.setNote("Ugentlig");
         addAktivitet(a2);
         
         Aktivitet a3 = new Aktivitet();
         a3.addPersonRessource(b1);
         a3.addPersonRessource(m2);
         a3.setTitel("Ugesamtale");
-        a3.setBeskrivelse("Emner: stemmehøring, familie");
+        a3.setNote("Emner: stemmehøring, familie");
         a3.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 15)));
         a3.setSlutdato(a3.getStart().plusDays(1));
         addAktivitet(a3);
@@ -157,7 +157,7 @@ public class Storage {
         a4.addPersonRessource(m1);
         a4.addPersonRessource(m2);
         a4.setTitel("Møde");
-        a4.setBeskrivelse("Statusmøde Alice");
+        a4.setNote("Statusmøde Alice");
         a4.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(16, 30)));
         a4.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(17, 30)));
         addAktivitet(a4);

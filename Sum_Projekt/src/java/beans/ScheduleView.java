@@ -21,6 +21,7 @@ import model.Aktivitet;
 import model.Beboer;
 import java.util.ArrayList;
 import model.Medarbejder;
+import model.PersonResource;
 import model.Resource;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -47,6 +48,7 @@ public class ScheduleView implements Serializable {
     private List<Beboer> opretaktivitetbeboere = new ArrayList<>();
     private List<Medarbejder> opretaktivitetmedarbejdere = new ArrayList<>();
     private List<Resource> opretaktivitetressource = new ArrayList<>();
+    private List<String> personeriaktivitet = new ArrayList<>();
 
     @PostConstruct
     public void init() {
@@ -176,10 +178,13 @@ public class ScheduleView implements Serializable {
 //    }
     public void addEvent(ActionEvent actionEvent) {
         String title = event.getTitle();
-        String beskrivelse = event.getDescription();
+        String note = event.getDescription();
         Date start = event.getStartDate();
         Date slut = event.getEndDate();
-        service.addAktivitet(title, beskrivelse, start, slut);
+        Aktivitet a = (Aktivitet) event.getData();
+        String sted = a.getSted();
+        int interval = a.getInterval();
+        service.addAktivitet(title, note, start, slut, sted, interval);
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
@@ -211,7 +216,7 @@ public class ScheduleView implements Serializable {
         for (Aktivitet a : aktiviteter) {
 //            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
             eventModel.addEvent(new DefaultScheduleEvent(a.toString(),
-                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut())));
+                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()),a));
         }
     }
 
@@ -239,4 +244,19 @@ public class ScheduleView implements Serializable {
         this.opretaktivitetressource = opretaktivitetressource;
     }
 
+    public List<String> getPersoneriaktivitet() {
+        return new ArrayList(personeriaktivitet);
+    }
+
+    public void setPersoneriaktivitet(List<String> personeriaktivitet) {
+        this.personeriaktivitet = personeriaktivitet;
+    }
+
+    public List allepersoneriaktivitet() {
+        List<PersonResource> combined = new ArrayList<>();
+        combined.addAll(opretaktivitetbeboere);
+        combined.addAll(opretaktivitetmedarbejdere);
+        combined.addAll(opretaktivitetressource);
+        return combined;
+    }
 }

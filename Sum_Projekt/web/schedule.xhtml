@@ -86,10 +86,10 @@
                 <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
 
                 <p:outputLabel value="Noter:" />
-                <textarea id="noter" rows="4" cols="23"/>
+                <textarea id="noter" rows="4" cols="23" value="#{scheduleView.event.description}"/>
 
                 <p:outputLabel for="sted" value="Sted:" />
-                <p:inputText id="sted" />
+                <p:inputText id="sted" value="#{scheduleView.event.data.sted}" />
 
                 <p:outputLabel for="from" value="Fra:" />
                 <p:calendar id="from" value="#{scheduleView.event.startDate}" timeZone="CET" pattern="dd/MM/yyyy HH:mm"/>
@@ -98,7 +98,7 @@
                 <p:calendar id="to" value="#{scheduleView.event.endDate}" timeZone="CET" pattern="dd/MM/yyyy HH:mm"/>
 
                 <p:outputLabel for="gen" value="Interval (i dage):" />
-                <p:inputText id="gen" />
+                <p:inputText id="gen" value="#{scheduleView.event.data.interval}" />
 
             </h:panelGrid>
             <hr/>
@@ -106,31 +106,39 @@
                 Personressourcer: 
             </p>
             <hr/>
-            <p:outputLabel for="persons" value="Personer:" />
-            <h:outputText id="persons" />
+                
+            <p:outputLabel for="persons" value="Personer der deltager i aktiviteten: " />
+            <div id="personsiakt">
+            <h:outputText id="persons" value="#{scheduleView.allepersoneriaktivitet()}" />
+            </div>
             <h:panelGrid columns="3">
                 <p:selectManyMenu id="beboere" value="#{scheduleView.opretaktivitetbeboere}"
-                                  var="b" filter="true" filterMatchMode="contains" showCheckbox="true">
+                                  var="b" filter="true" filterMatchMode="contains" showCheckbox="true"> 
+                    <f:ajax event="change" render="persons" />
                     <f:selectItems value="#{service.beboere}" var="beboer" itemLabel="#{beboer.navn}" itemValue="#{beboer}" />
                     <p:column>
                         <h:outputText value="#{b.navn}" />
                     </p:column>
+                   
                 </p:selectManyMenu>
                 <p:selectManyMenu id="medarbejdere" value="#{scheduleView.opretaktivitetmedarbejdere}"
-                                  var="m" filter="true" filterMatchMode="contains" showCheckbox="true">
+                                  var="m" filter="true" filterMatchMode="contains" showCheckbox="true"> 
+                    <f:ajax event="change" render="persons" />
                     <f:selectItems value="#{service.medarbejdere}" var="medarbejder" itemLabel="#{medarbejder.navn}" itemValue="#{medarbejder}" />
                     <p:column>
                         <h:outputText value="#{m.navn}" />
                     </p:column>
                 </p:selectManyMenu>
                 <p:selectManyMenu id="ressourcer" value="#{scheduleView.opretaktivitetressource}"
-                                  var="r" filter="true" filterMatchMode="contains" showCheckbox="true">
+                                  var="r" filter="true" filterMatchMode="contains" showCheckbox="true"> 
+                    <f:ajax event="change" render="persons" />
                     <f:selectItems value="#{service.resourcer}" var="resource" itemLabel="#{resource.navn}" itemValue="#{resource}" />
                     <p:column>
                         <h:outputText value="#{r.navn}" />
                     </p:column>
                 </p:selectManyMenu>
             </h:panelGrid>
+
             <h:panelGrid columns="2">
                 <p:commandButton type="reset" value="Nulstil" />
                 <p:commandButton id="addButton" value="Gem" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />

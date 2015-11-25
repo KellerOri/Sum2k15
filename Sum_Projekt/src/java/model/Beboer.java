@@ -35,6 +35,11 @@ public class Beboer implements PersonResource{
     public void setNoter(String noter) {
         this.noter = noter;
     }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
     
     
 }

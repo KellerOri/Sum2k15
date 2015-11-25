@@ -9,7 +9,8 @@ package model;
  *
  * @author Andromeda
  */
-public class Medarbejder implements PersonResource{
+public class Medarbejder implements PersonResource {
+
     private String navn;
 
     public Medarbejder() {
@@ -19,7 +20,6 @@ public class Medarbejder implements PersonResource{
         this.navn = navn;
     }
 
-    
     public String getNavn() {
         return navn;
     }
@@ -27,6 +27,10 @@ public class Medarbejder implements PersonResource{
     public void setNavn(String navn) {
         this.navn = navn;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return navn;
+    }
+
 }
