@@ -43,9 +43,10 @@ public class Service implements Serializable {
         storage.addAktivitet(aktivitet);
     }
 
-    public void addAktivitet(String title, Date start, Date slut){
+    public void addAktivitet(String title, String beskrivelse, Date start, Date slut){
         Aktivitet a = new Aktivitet();
         a.setTitel(title);
+        a.setBeskrivelse(beskrivelse);
         a.setStartdato(dateToLocalDate(start));
         a.setSlutdato(dateToLocalDate(slut));
         addAktivitet(a);
