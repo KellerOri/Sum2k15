@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -54,8 +55,7 @@ public class ScheduleView implements Serializable {
     
     @PostConstruct
     public void init() {
-        eventModel = new DefaultScheduleModel();
-  
+        eventModel = new MyScheduleModel();
         loadEvents();
     }
 
@@ -85,15 +85,6 @@ public class ScheduleView implements Serializable {
         this.selectedResourcer = selectedResourcer;
     }
 
-
-    public Date getRandomDate(Date base) {
-        Calendar date = Calendar.getInstance();
-        date.setTime(base);
-        date.add(Calendar.DATE, ((int) (Math.random() * 30)) + 1);    //set random day of month
-        
-        return date.getTime();
-    }
-    
     public Date getInitialDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
@@ -108,84 +99,7 @@ public class ScheduleView implements Serializable {
     public ScheduleModel getLazyEventModel() {
         return lazyEventModel;
     }
-    
-    private Calendar today() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
-        
-        return calendar;
-    }
-    
-    private Date previousDay8Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-        t.set(Calendar.HOUR, 8);
-        
-        return t.getTime();
-    }
-    
-    private Date previousDay11Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-        t.set(Calendar.HOUR, 11);
-        
-        return t.getTime();
-    }
-    
-    private Date today1Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 1);
-        
-        return t.getTime();
-    }
-    
-    private Date theDayAfter3Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 2);        
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 3);
-        
-        return t.getTime();
-    }
-    
-    private Date today6Pm() {
-        Calendar t = (Calendar) today().clone();        
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 6);
-        
-        return t.getTime();
-    }
-    
-    private Date nextDay9Am() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.AM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 1);
-        t.set(Calendar.HOUR, 9);
-        
-        return t.getTime();
-    }
-    
-    private Date nextDay11Am() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.AM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 1);
-        t.set(Calendar.HOUR, 11);
-        
-        return t.getTime();
-    }
-    
-    private Date fourDaysLater3pm() {
-        Calendar t = (Calendar) today().clone();        
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 4);
-        t.set(Calendar.HOUR, 3);
-        
-        return t.getTime();
-    }
-    
+ 
     public ScheduleEvent getEvent() {
         return event;
     }
@@ -203,11 +117,12 @@ public class ScheduleView implements Serializable {
 //        event = new DefaultScheduleEvent();
 //    }
     public void addEvent(ActionEvent actionEvent) {
+//        if(model !contains event)
         String title = event.getTitle();
         String beskrivelse = event.getDescription();
         Date start = event.getStartDate();
         Date slut = event.getEndDate();
-        service.addAktivitet(title, beskrivelse, start, slut);
+        service.createAktivitet(title, beskrivelse, start, slut);
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
@@ -234,21 +149,40 @@ public class ScheduleView implements Serializable {
     }
     
     private void loadEvents() {
+        eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         System.out.println(aktiviteter.size());
         for (Aktivitet a : aktiviteter) {
             eventModel.addEvent(new DefaultScheduleEvent(a.toString(),
                     service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a));
         }
+
     }
     
+    public void test(){
+        System.out.println("Test()");
+        for(ScheduleEvent se : eventModel.getEvents()){
+            eventModel.deleteEvent(se);
+        }
+    }
  
- 
+    public void applyFilter(){
+        HashSet<Aktivitet> filter = new HashSet<Aktivitet>();
+        ArrayList<PersonResource> list = new ArrayList<>();
+        list.addAll(selectedMedarbejdere);
+        list.addAll(selectedBeboere);
+        list.addAll(selectedResourcer);
+        
+        for(PersonResource pr : list){
+            
+        }
+    }
     public void updateCalendar(AjaxBehaviorEvent event) throws AbortProcessingException {
 	
         
         
-        System.out.println("event: " + event.getComponent());}
+        System.out.println("event: " + event.getComponent());
+    }
 
 	
 }

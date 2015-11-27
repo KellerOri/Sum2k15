@@ -60,14 +60,14 @@ public class ServiceTest {
 //    }
 //
 //    /**
-//     * Test of addAktivitet method, of class Service.
+//     * Test of createAktivitet method, of class Service.
 //     */
 //    @Test
 //    public void testAddAktivitet() {
-////        System.out.println("addAktivitet");
+////        System.out.println("createAktivitet");
 //        DefaultScheduleEvent event = null;
 //        Service instance = new Service();
-//        instance.addAktivitet(event);
+//        instance.createAktivitet(event);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }

@@ -5,10 +5,13 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author Arthur
  */
 public interface PersonResource {
-    
+    public Aktivitet addAktivitet(Aktivitet a);
+    public List<Aktivitet> getAktiviteter();
 }

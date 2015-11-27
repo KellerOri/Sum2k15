@@ -11,6 +11,9 @@ and open the template in the editor.
 *{
     box-sizing: border-box;
 }
+body{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
 #datepicker {
     margin:auto;
     width: 44%;
@@ -18,7 +21,7 @@ and open the template in the editor.
 [id="j_idt11:0:calendar"] {
     padding: 15px;
 }
-#scheduleconainer{
+#schedulecontainer{
 
 }
 #filtercontainer{

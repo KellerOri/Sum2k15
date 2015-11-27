@@ -5,14 +5,18 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Andromeda
  */
 public class Medarbejder implements PersonResource{
     private String navn;
-
+    private List<Aktivitet> aktiviteter;
     public Medarbejder() {
+        aktiviteter = new ArrayList<Aktivitet>();
     }
 
     public Medarbejder(String navn) {
@@ -30,6 +34,17 @@ public class Medarbejder implements PersonResource{
     
     public String getType(){
         return "Medarbejder";
+    }
+
+    @Override
+    public Aktivitet addAktivitet(Aktivitet a) {
+        aktiviteter.add(a);
+        return a;
+    }
+
+    @Override
+    public List<Aktivitet> getAktiviteter() {
+        return new ArrayList<Aktivitet>(aktiviteter);
     }
     
     

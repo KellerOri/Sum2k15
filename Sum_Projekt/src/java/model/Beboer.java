@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Andromeda
@@ -13,13 +16,26 @@ public class Beboer implements PersonResource{
     
     private String navn;
     private String noter;
+    private List<Aktivitet> aktiviteter;
     
     public Beboer() {    
+        aktiviteter = new ArrayList<Aktivitet>();
     }
 
     public Beboer(String navn) {
         this.navn = navn;
     }
+    
+    public Aktivitet addAktivitet(Aktivitet a){
+        aktiviteter.add(a);
+        return a;
+    }
+
+    public List<Aktivitet> getAktiviteter() {
+        return new ArrayList<Aktivitet>(aktiviteter);
+    }
+    
+    
     public String getNavn() {
         return navn;
     }

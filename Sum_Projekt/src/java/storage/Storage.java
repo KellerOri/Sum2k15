@@ -67,6 +67,14 @@ public class Storage {
         aktiviteter.add(aktivitet);
         return aktivitet;
     }
+    
+    public Aktivitet addAktivitet(Aktivitet a, List<PersonResource> prs){
+        for(PersonResource pr : prs){
+            pr.addAktivitet(a);
+            a.addPersonRessource(pr);
+        }
+        return a;
+    }
 
     public List<Medarbejder> getMedarbejdere() {
         return new ArrayList<>(medarbejdere);
@@ -118,7 +126,8 @@ public class Storage {
     }
     
     private void initStorage() {
-        System.out.println("init()");
+//        System.out.println("init()");
+        List<PersonResource> temp = new ArrayList<PersonResource>();
         
         Beboer b1 = addBeboer(new Beboer("Alice"));
         Beboer b2 = addBeboer(new Beboer("Bob"));
@@ -128,44 +137,46 @@ public class Storage {
 
         Medarbejder m1 = addMedarbejder(new Medarbejder("Anette"));
         Medarbejder m2 = addMedarbejder(new Medarbejder("Louise"));
-        
-        Resource r1 = new Resource();
 
         Aktivitet a1 = new Aktivitet();
-        a1.addPersonRessource(b1);
-        a1.addPersonRessource(m1);
         a1.setStartdato(LocalDateTime.now());
         a1.setSlutdato(LocalDateTime.now().plusHours(4));
         a1.setTitel("Bjerge");
         a1.setBeskrivelse("Jaer. Og gud sagde Moses Moses!");
-        addAktivitet(a1);
+        temp.clear();
+        temp.add(b1);
+        temp.add(m1);
+        addAktivitet(a1, temp);
 
         Aktivitet a2 = new Aktivitet();
-        a2.addPersonRessource(b2);
-        a2.addPersonRessource(m2);
         a2.setStartdato(LocalDateTime.now().plusHours(2));
         a2.setSlutdato(LocalDateTime.now().plusHours(4));
         a2.setTitel("Bostøtte");
         a2.setBeskrivelse("Ugentlig");
-        addAktivitet(a2);
+        temp.clear(); 
+        temp.add(b2);
+        temp.add(m2);
+        addAktivitet(a2, temp);
         
         Aktivitet a3 = new Aktivitet();
-        a3.addPersonRessource(b1);
-        a3.addPersonRessource(m2);
         a3.setTitel("Ugesamtale");
         a3.setBeskrivelse("Emner: stemmehøring, familie");
         a3.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 15)));
         a3.setSlutdato(a3.getStart().plusDays(1));
-        addAktivitet(a3);
+        temp.clear();
+        temp.add(b1);
+        temp.add(m2);
+        addAktivitet(a3, temp);
         
         Aktivitet a4 = new Aktivitet();
-        a4.addPersonRessource(m1);
-        a4.addPersonRessource(m2);
         a4.setTitel("Møde");
         a4.setBeskrivelse("Statusmøde Alice");
         a4.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(16, 30)));
         a4.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(17, 30)));
-        addAktivitet(a4);
+        temp.clear();
+        temp.add(m1);
+        temp.add(m2);
+        addAktivitet(a4, temp);
         
         Note n = new Note(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
         addNote(n);

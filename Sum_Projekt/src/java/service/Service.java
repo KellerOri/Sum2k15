@@ -34,22 +34,38 @@ public class Service implements Serializable {
         return storage.getAktiviteter();
     }
 
-//    public void addAktivitet(DefaultScheduleEvent event) {
+//    public void createAktivitet(DefaultScheduleEvent event) {
 //        Aktivitet a = new Aktivitet(event);
-//        storage.addAktivitet(a);
+//        storage.createAktivitet(a);
 //    }
 
     public void addAktivitet(Aktivitet aktivitet) {
         storage.addAktivitet(aktivitet);
     }
-
-    public void addAktivitet(String title, String beskrivelse, Date start, Date slut){
+    
+    public Aktivitet createAktivitet(String title, String beskrivelse, Date start, Date slut){
         Aktivitet a = new Aktivitet();
         a.setTitel(title);
         a.setBeskrivelse(beskrivelse);
         a.setStartdato(dateToLocalDate(start));
         a.setSlutdato(dateToLocalDate(slut));
         addAktivitet(a);
+        return a;
+    }
+    
+    public Aktivitet createAktivitet(String title, String beskrivelse, Date start, Date slut, List<PersonResource> resourcer){
+        Aktivitet a = new Aktivitet();
+        a.setTitel(title);
+        a.setBeskrivelse(beskrivelse);
+        a.setStartdato(dateToLocalDate(start));
+        a.setSlutdato(dateToLocalDate(slut));
+        
+        for(PersonResource pr : resourcer){
+            pr.addAktivitet(a);
+            a.addPersonRessource(pr);
+        }
+        addAktivitet(a);
+        return a;
     }
     
     public Beboer addBeboer(String navn) {
