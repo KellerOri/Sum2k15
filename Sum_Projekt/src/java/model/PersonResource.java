@@ -5,13 +5,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Arthur
  */
-public interface PersonResource {
+public interface PersonResource extends Serializable{
     public Aktivitet addAktivitet(Aktivitet a);
     public List<Aktivitet> getAktiviteter();
 }

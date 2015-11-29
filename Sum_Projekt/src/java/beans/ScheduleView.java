@@ -9,6 +9,7 @@ import com.sun.javafx.scene.control.SelectedCellsMap;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -44,10 +45,10 @@ public class ScheduleView implements Serializable {
 
     @Inject
     Service service;
-    private ScheduleModel eventModel;
+    private MyScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
     
-    private ScheduleEvent event = new DefaultScheduleEvent();
+    private ScheduleEvent event;
     
     private List<Medarbejder> selectedMedarbejdere;
     private List<Beboer> selectedBeboere;
@@ -55,7 +56,9 @@ public class ScheduleView implements Serializable {
     
     @PostConstruct
     public void init() {
-        eventModel = new MyScheduleModel();
+//        eventModel = new DefaultScheduleModel();
+        event = new DefaultScheduleEvent();
+        eventModel = new MyScheduleModel(service);
         loadEvents();
     }
 
@@ -151,38 +154,32 @@ public class ScheduleView implements Serializable {
     private void loadEvents() {
         eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
-        System.out.println(aktiviteter.size());
         for (Aktivitet a : aktiviteter) {
             eventModel.addEvent(new DefaultScheduleEvent(a.toString(),
-                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a));
+                    Service.localDateTimetoDate(a.getStart()), Service.localDateTimetoDate(a.getSlut()), a));
         }
 
     }
     
     public void test(){
-        System.out.println("Test()");
-        for(ScheduleEvent se : eventModel.getEvents()){
-            eventModel.deleteEvent(se);
-        }
+        System.out.println("Test() eventcount: " + eventModel.getEventCount());
+        System.out.println("m: " + Arrays.toString(selectedMedarbejdere.toArray()));
+        System.out.println("b: " + Arrays.toString(selectedBeboere.toArray()));
+        applyFilter();
+        System.out.println("Test() eventcount: " + eventModel.getEventCount());
     }
  
     public void applyFilter(){
-        HashSet<Aktivitet> filter = new HashSet<Aktivitet>();
+        System.out.println("scheduleView.applyFilter()");
         ArrayList<PersonResource> list = new ArrayList<>();
+        System.out.println("list.addAll(ms)");
         list.addAll(selectedMedarbejdere);
+        System.out.println("list.addAll(bs)");
         list.addAll(selectedBeboere);
+        System.out.println("list.addAll(rs)");
         list.addAll(selectedResourcer);
-        
-        for(PersonResource pr : list){
-            
-        }
+        System.out.println("list: " + list.toString());
+        eventModel.applyFilters(list);
     }
-    public void updateCalendar(AjaxBehaviorEvent event) throws AbortProcessingException {
-	
-        
-        
-        System.out.println("event: " + event.getComponent());
-    }
-
 	
 }

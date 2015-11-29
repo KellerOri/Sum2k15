@@ -44,6 +44,26 @@ public class ServiceTest {
     @After
     public void tearDown() {
     }
+    
+        /**
+     * Test of getAktiviterPaaDag method, of class Service.
+     */
+    @Test
+    public void testGetAktiviterPaaDag() {
+//        System.out.println("getAktiviterPaaDag");
+        LocalDate ldt = LocalDate.now();
+        Service instance = new Service();
+        List<Aktivitet> res = instance.getAktiviterPaaDag(ldt);
+        System.out.println(ldt + " " + res);
+        assertEquals(2, res.size());
+    }
+    
+    @Test
+    public void testGetAktiviteter(){
+         Service instance = new Service();
+        List<Aktivitet> res = instance.getAktiviteter();
+        assertEquals(2, res.size());
+    }
 //
 //    /**
 //     * Test of getAktiviteter method, of class Service.
@@ -158,24 +178,6 @@ public class ServiceTest {
 //        fail("The test case is a prototype.");
 //    }
 
-    /**
-     * Test of getAktiviterPaaDag method, of class Service.
-     */
-    @Test
-    public void testGetAktiviterPaaDag() {
-//        System.out.println("getAktiviterPaaDag");
-        LocalDate ldt = LocalDate.now();
-        Service instance = new Service();
-        List<Aktivitet> res = instance.getAktiviterPaaDag(ldt);
-        System.out.println(ldt + " " + res);
-        assertEquals(2, res.size());
-    }
-    
-    @Test
-    public void testGetAktiviteter(){
-         Service instance = new Service();
-        List<Aktivitet> res = instance.getAktiviteter();
-        assertEquals(2, res.size());
-    }
+
     
 }

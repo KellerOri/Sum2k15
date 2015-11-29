@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import java.util.Set;
  *
  * @author Andromeda
  */
-public class Aktivitet {
+public class Aktivitet implements Serializable{
 
     private Set<PersonResource> personresourcer;
     private LocalDateTime start;

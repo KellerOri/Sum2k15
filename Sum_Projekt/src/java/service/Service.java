@@ -102,13 +102,13 @@ public class Service implements Serializable {
         return storage.getAktiviteterPaaDag(ldt);
     }
 
-    public LocalDateTime dateToLocalDate(Date date) {
+    public static final LocalDateTime dateToLocalDate(Date date) {
         Instant instant = Instant.ofEpochMilli(date.getTime());
         LocalDateTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         return res;
     }
 
-    public Date localDateTimetoDate(LocalDateTime ldt) {
+    public static final Date localDateTimetoDate(LocalDateTime ldt) {
         Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
         Date res = Date.from(instant);
         return res;

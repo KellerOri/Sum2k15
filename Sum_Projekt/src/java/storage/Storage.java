@@ -5,6 +5,7 @@
  */
 package storage;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,7 +18,7 @@ import model.Note;
 import model.PersonResource;
 import model.Resource;
 
-public class Storage {
+public class Storage implements Serializable{
 
     private List<Beboer> beboere;
     private List<Aktivitet> aktiviteter;
@@ -73,6 +74,7 @@ public class Storage {
             pr.addAktivitet(a);
             a.addPersonRessource(pr);
         }
+        addAktivitet(a);
         return a;
     }
 
@@ -107,9 +109,9 @@ public class Storage {
 
     public List<Aktivitet> getAktiviteterPaaDag(LocalDate ldt) {
         List<Aktivitet> result = new ArrayList<Aktivitet>();
-        System.out.println("Storage " + aktiviteter.size());
+//        Systems.out.println("Storage " + aktiviteter.size());
         for (Aktivitet a : aktiviteter) {
-            System.out.println(a);
+//            System.out.println(a);
             if (a.getStart() != null && a.getStart().toLocalDate().equals(ldt)) {
                 result.add(a);
             }
@@ -139,8 +141,8 @@ public class Storage {
         Medarbejder m2 = addMedarbejder(new Medarbejder("Louise"));
 
         Aktivitet a1 = new Aktivitet();
-        a1.setStartdato(LocalDateTime.now());
-        a1.setSlutdato(LocalDateTime.now().plusHours(4));
+        a1.setStartdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 30)));
+        a1.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 0)));
         a1.setTitel("Bjerge");
         a1.setBeskrivelse("Jaer. Og gud sagde Moses Moses!");
         temp.clear();
@@ -149,8 +151,8 @@ public class Storage {
         addAktivitet(a1, temp);
 
         Aktivitet a2 = new Aktivitet();
-        a2.setStartdato(LocalDateTime.now().plusHours(2));
-        a2.setSlutdato(LocalDateTime.now().plusHours(4));
+        a2.setStartdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
+        a2.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 0)));
         a2.setTitel("Bostøtte");
         a2.setBeskrivelse("Ugentlig");
         temp.clear(); 
@@ -162,7 +164,7 @@ public class Storage {
         a3.setTitel("Ugesamtale");
         a3.setBeskrivelse("Emner: stemmehøring, familie");
         a3.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 15)));
-        a3.setSlutdato(a3.getStart().plusDays(1));
+        a3.setSlutdato(a3.getStart().plusHours(1));
         temp.clear();
         temp.add(b1);
         temp.add(m2);
@@ -172,11 +174,32 @@ public class Storage {
         a4.setTitel("Møde");
         a4.setBeskrivelse("Statusmøde Alice");
         a4.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(16, 30)));
-        a4.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(17, 30)));
+        a4.setSlutdato(a4.getStart().plusHours(2));
         temp.clear();
         temp.add(m1);
         temp.add(m2);
         addAktivitet(a4, temp);
+        
+        Aktivitet a5 = new Aktivitet();
+        a5.setTitel("Sensorisk profil");
+        a5.setBeskrivelse("");
+        a5.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(11, 30)));
+        a5.setSlutdato(a4.getStart().plusHours(2));
+        temp.clear();
+        temp.add(m1);
+        temp.add(b5);
+        addAktivitet(a5, temp);
+        
+        Aktivitet a6 = new Aktivitet();
+        a6.setTitel("Ugesamtale");
+        a6.setBeskrivelse("Spørg ind til familie, tilbagefald");
+        a6.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(20, 30)));
+        a6.setSlutdato(a4.getStart().plusMinutes(45));
+        temp.clear();
+        temp.add(m2);
+        temp.add(b4);
+        addAktivitet(a6, temp);
+        
         
         Note n = new Note(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
         addNote(n);

@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Andromeda
  */
-public class Medarbejder implements PersonResource{
+public class Medarbejder implements PersonResource, Serializable{
     private String navn;
     private List<Aktivitet> aktiviteter;
     public Medarbejder() {
@@ -20,6 +21,7 @@ public class Medarbejder implements PersonResource{
     }
 
     public Medarbejder(String navn) {
+        this();
         this.navn = navn;
     }
 
@@ -47,5 +49,9 @@ public class Medarbejder implements PersonResource{
         return new ArrayList<Aktivitet>(aktiviteter);
     }
     
-    
+ 
+    @Override
+    public String toString(){
+        return navn + ", " + aktiviteter.size();
+    }
 }
