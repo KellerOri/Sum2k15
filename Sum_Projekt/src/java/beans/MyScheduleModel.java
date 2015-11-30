@@ -52,6 +52,7 @@ public class MyScheduleModel extends DefaultScheduleModel {
     public void applyFilters(List<PersonResource> fs) {
         filters.clear();
         filters.addAll(fs);
+        aktiviteter.clear();
         updateAllEvents();
     }
 
