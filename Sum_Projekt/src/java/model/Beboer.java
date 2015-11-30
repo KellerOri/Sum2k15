@@ -13,13 +13,13 @@ import java.util.List;
  *
  * @author Andromeda
  */
-public class Beboer implements PersonResource, Serializable{
-    
+public class Beboer implements PersonResource, Serializable {
+
     private String navn;
     private String noter;
     private List<Aktivitet> aktiviteter;
-    
-    public Beboer() {    
+
+    public Beboer() {
         aktiviteter = new ArrayList<Aktivitet>();
     }
 
@@ -27,9 +27,9 @@ public class Beboer implements PersonResource, Serializable{
         this();
         this.navn = navn;
     }
-    
+
     @Override
-    public Aktivitet addAktivitet(Aktivitet a){
+    public Aktivitet addAktivitet(Aktivitet a) {
         aktiviteter.add(a);
         return a;
     }
@@ -38,16 +38,15 @@ public class Beboer implements PersonResource, Serializable{
     public List<Aktivitet> getAktiviteter() {
         return new ArrayList<Aktivitet>(aktiviteter);
     }
-    
-    
+
     public String getNavn() {
         return navn;
     }
 
     public void setNavn(String navn) {
         this.navn = navn;
-    } 
-    
+    }
+
     public String getNoter() {
         return noter;
     }
@@ -56,12 +55,9 @@ public class Beboer implements PersonResource, Serializable{
         this.noter = noter;
 
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return navn + ", " + aktiviteter.size();
     }
-
-
-    
 }

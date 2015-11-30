@@ -13,7 +13,9 @@ import java.util.List;
  *
  * @author Andromeda
  */
+
 public class Medarbejder implements PersonResource, Serializable{
+
     private String navn;
     private List<Aktivitet> aktiviteter;
     public Medarbejder() {
@@ -25,7 +27,6 @@ public class Medarbejder implements PersonResource, Serializable{
         this.navn = navn;
     }
 
-    
     public String getNavn() {
         return navn;
     }
@@ -33,6 +34,7 @@ public class Medarbejder implements PersonResource, Serializable{
     public void setNavn(String navn) {
         this.navn = navn;
     }
+
     
     public String getType(){
         return "Medarbejder";
@@ -54,4 +56,8 @@ public class Medarbejder implements PersonResource, Serializable{
     public String toString(){
         return navn + ", " + aktiviteter.size();
     }
+
+
+
+
 }

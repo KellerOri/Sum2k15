@@ -150,13 +150,13 @@ public class Storage implements Serializable{
         a1.setStartdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 30)));
         a1.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 0)));
         a1.setTitel("Bjerge");
-        a1.setBeskrivelse("Jaer. Og gud sagde Moses Moses!");
 
         temp.clear();
         temp.add(b1);
         temp.add(m1);
         addAktivitet(a1, temp);
 
+        a1.setNote("Jaer. Og gud sagde Moses Moses!");
         a1.addPersonRessource(r1);
         addAktivitet(a1);
 
@@ -165,15 +165,20 @@ public class Storage implements Serializable{
         a2.setStartdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
         a2.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 0)));
         a2.setTitel("Bostøtte");
-        a2.setBeskrivelse("Ugentlig");
+
+
         temp.clear(); 
         temp.add(b2);
         temp.add(m2);
         addAktivitet(a2, temp);
+
+        a2.setNote("Ugentlig");
+        addAktivitet(a2);
+
         
         Aktivitet a3 = new Aktivitet();
         a3.setTitel("Ugesamtale");
-        a3.setBeskrivelse("Emner: stemmehøring, familie");
+        a3.setNote("Emner: stemmehøring, familie");
         a3.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 15)));
         a3.setSlutdato(a3.getStart().plusHours(1));
         temp.clear();
@@ -183,7 +188,7 @@ public class Storage implements Serializable{
         
         Aktivitet a4 = new Aktivitet();
         a4.setTitel("Møde");
-        a4.setBeskrivelse("Statusmøde Alice");
+        a4.setNote("Statusmøde Alice");
         a4.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(16, 30)));
         a4.setSlutdato(a4.getStart().plusHours(2));
         temp.clear();
@@ -193,7 +198,7 @@ public class Storage implements Serializable{
         
         Aktivitet a5 = new Aktivitet();
         a5.setTitel("Sensorisk profil");
-        a5.setBeskrivelse("");
+        a5.setNote("");
         a5.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(11, 30)));
         a5.setSlutdato(a4.getStart().plusHours(2));
         temp.clear();
@@ -203,7 +208,7 @@ public class Storage implements Serializable{
         
         Aktivitet a6 = new Aktivitet();
         a6.setTitel("Ugesamtale");
-        a6.setBeskrivelse("Spørg ind til familie, tilbagefald");
+        a6.setNote("Spørg ind til familie, tilbagefald");
         a6.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(20, 30)));
         a6.setSlutdato(a4.getStart().plusMinutes(45));
         temp.clear();
