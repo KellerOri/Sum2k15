@@ -158,8 +158,6 @@ public class Storage implements Serializable{
 
         a1.setNote("Jaer. Og gud sagde Moses Moses!");
         a1.addPersonRessource(r1);
-        addAktivitet(a1);
-
 
         Aktivitet a2 = new Aktivitet();
         a2.setStartdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
@@ -173,7 +171,6 @@ public class Storage implements Serializable{
         addAktivitet(a2, temp);
 
         a2.setNote("Ugentlig");
-        addAktivitet(a2);
 
         
         Aktivitet a3 = new Aktivitet();
@@ -214,11 +211,11 @@ public class Storage implements Serializable{
         temp.clear();
         temp.add(m2);
         temp.add(b4);
-        addAktivitet(a6, temp);
-        
+        addAktivitet(a6, temp);        
         
         Note n = new Note(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
         addNote(n);
+        
         
     }
 }

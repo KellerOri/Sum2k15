@@ -71,7 +71,7 @@ public class ScheduleView implements Serializable {
     }
 
     public List<Medarbejder> getSelectedMedarbejdere() {
-        return selectedMedarbejdere;
+        return selectedMedarbejdere;    
     }
 
     public void setSelectedMedarbejdere(List<Medarbejder> selectedMedarbejdere) {
@@ -198,14 +198,6 @@ public class ScheduleView implements Serializable {
 
 //            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
 
-            eventModel.addEvent(new DefaultScheduleEvent(a.toString(), 
-                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a));
-
-
-            eventModel.addEvent(new DefaultScheduleEvent(a.toString(),
-                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()),a));
-
-
         }
 
     }
@@ -215,6 +207,7 @@ public class ScheduleView implements Serializable {
         System.out.println("Test() eventcount: " + eventModel.getEventCount());
         System.out.println("m: " + Arrays.toString(selectedMedarbejdere.toArray()));
         System.out.println("b: " + Arrays.toString(selectedBeboere.toArray()));
+        
         applyFilter();
         System.out.println("Test() eventcount: " + eventModel.getEventCount());
     }
@@ -224,7 +217,7 @@ public class ScheduleView implements Serializable {
         ArrayList<PersonResource> list = new ArrayList<>();
         System.out.println("list.addAll(ms)");
         list.addAll(selectedMedarbejdere);
-        System.out.println("list.addAll(bs)");
+//        System.out.println("list.addAll(bs) " + selectedMedarbejdere.get(0).getClass());
         list.addAll(selectedBeboere);
         System.out.println("list.addAll(rs)");
         list.addAll(selectedResourcer);

@@ -16,6 +16,7 @@ import java.util.List;
 public interface PersonResource extends Serializable{
     public Aktivitet addAktivitet(Aktivitet a);
     public List<Aktivitet> getAktiviteter();
-
+    public String getId();
+    public String getNavn();
 
 }

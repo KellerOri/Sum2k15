@@ -27,8 +27,10 @@ import service.Service;
  *
  * @author Arthur
  */
-public class MyScheduleModel extends DefaultScheduleModel{
+public class MyScheduleModel extends DefaultScheduleModel {
+
     //extends LasyScheduleModel istedet -> implementer loadEvents(start, slut)
+
     Set<PersonResource> filters = new HashSet<PersonResource>();
     Set<Aktivitet> aktiviteter = new HashSet<Aktivitet>();
     Service service;
@@ -36,73 +38,82 @@ public class MyScheduleModel extends DefaultScheduleModel{
     public MyScheduleModel(Service service) {
         this.service = service;
     }
-    
-    public void addFilter(PersonResource filter){
+
+    public void addFilter(PersonResource filter) {
         filters.add(filter);
         updateAllEvents();
     }
-    
-    public void deleteFilter(PersonResource filter){
+
+    public void deleteFilter(PersonResource filter) {
         filters.remove(filter);
         updateAllEvents();
     }
-    
-    public void applyFilters(List<PersonResource> fs){
+
+    public void applyFilters(List<PersonResource> fs) {
         filters.clear();
         filters.addAll(fs);
         updateAllEvents();
     }
+
     /**
-     * Clearer eventmodel for aktiviteter, løber alle personresourcer igennem og matcher deres aktiviteter.
-     *  O(n^2) + O(n)
-     * ...Burde kunne laves bedre...
-     * 
+     * Clearer eventmodel for aktiviteter, løber alle personresourcer igennem og
+     * matcher deres aktiviteter. O(n^2) + O(n) ...Burde kunne laves bedre...
+     *
      */
-    private void updateAllEvents(){
+    private void updateAllEvents() {
         System.out.println("myScheduleModel.updateAllEvents()");
         System.out.println(getEventCount());
         clear();
         System.out.println(getEventCount());
         System.out.println("filters: " + Arrays.toString(filters.toArray()));
-//        for(PersonResource pr : filters){
-//            for(Aktivitet a : pr.getAktiviteter()){
-//                aktiviteter.add(a);
-//            } FEEEJLL!!!
-//        }
-//        for(Aktivitet a : aktiviteter){
-//            addEvent(a);
-//        }
-    }
-    private void updateAddEvents(PersonResource pr){
         
+        for(String pr : filters){
+            System.out.println(pr);
+        }
     }
-    private void updateDeleteEvents(PersonResource pr){
-        
+
+    private void visEventsToday() {
+        for (Aktivitet a : service.getAktiviterPaaDag(LocalDate.now())) {
+            addEvent(a);
+        }
     }
+
+    private void updateAddEvents(PersonResource pr) {
+
+    }
+
+    private void updateDeleteEvents(PersonResource pr) {
+
+    }
+
     /**
      * Adder aktivitet til eventmodel som en DefaultScheduleEvent
-     * @param a 
+     *
+     * @param a
      */
-    public void addEvent(Aktivitet a){
-        addEvent(new DefaultScheduleEvent(a.toString(), 
-                        Service.localDateTimetoDate(a.getStart()), Service.localDateTimetoDate(a.getSlut()), a));
+    public void addEvent(Aktivitet a) {
+        addEvent(new DefaultScheduleEvent(a.toString(),
+                Service.localDateTimetoDate(a.getStart()), Service.localDateTimetoDate(a.getSlut()), a));
     }
-    
-    public void test(){
+
+    public void test() {
         System.out.println("Testing myschedulemodel");
         loadEvents(Service.localDateTimetoDate(LocalDateTime.now()), Service.localDateTimetoDate(LocalDateTime.now().plusDays(1)));
     }
+
     /**
-     * Skal tage højde for filtre og MyScheduleModel kan extende lazyScheduleModel istedet
+     * Skal tage højde for filtre og MyScheduleModel kan extende
+     * lazyScheduleModel istedet
+     *
      * @param start
-     * @param end 
+     * @param end
      */
-    public void loadEvents(Date start, Date end){
+    public void loadEvents(Date start, Date end) {
         LocalDate ldStart = Service.dateToLocalDate(start).toLocalDate();
         LocalDate ldEnd = Service.dateToLocalDate(end).toLocalDate();
-        while(ldStart.isBefore(ldEnd)){
+        while (ldStart.isBefore(ldEnd)) {
             for (Aktivitet a : service.getAktiviterPaaDag(ldStart)) {
-                if(aktiviteter.contains(a)){
+                if (aktiviteter.contains(a)) {
                     addEvent(a);
                 }
             }
