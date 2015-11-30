@@ -54,9 +54,9 @@ public class ScheduleView implements Serializable {
     
     private ScheduleEvent event;
     
-    private List<Medarbejder> selectedMedarbejdere;
-    private List<Beboer> selectedBeboere;
-    private List<Resource> selectedResourcer;
+    private List<String> selectedMedarbejdere;
+    private List<String> selectedBeboere;
+    private List<String> selectedResourcer;
 
     private List<Beboer> opretaktivitetbeboere = new ArrayList<>();
     private List<Medarbejder> opretaktivitetmedarbejdere = new ArrayList<>();
@@ -70,29 +70,29 @@ public class ScheduleView implements Serializable {
         loadEvents();
     }
 
-    public List<Medarbejder> getSelectedMedarbejdere() {
+    public List<String> getSelectedMedarbejdere() {
         return selectedMedarbejdere;    
     }
 
-    public void setSelectedMedarbejdere(List<Medarbejder> selectedMedarbejdere) {
+    public void setSelectedMedarbejdere(List<String> selectedMedarbejdere) {
         
         this.selectedMedarbejdere = selectedMedarbejdere;
  
     }
 
-    public List<Beboer> getSelectedBeboere() {
+    public List<String> getSelectedBeboere() {
         return selectedBeboere;
     }
 
-    public void setSelectedBeboere(List<Beboer> selectedBeboere) {
+    public void setSelectedBeboere(List<String> selectedBeboere) {
         this.selectedBeboere = selectedBeboere;
     }
 
-    public List<Resource> getSelectedResourcer() {
+    public List<String> getSelectedResourcer() {
         return selectedResourcer;
     }
 
-    public void setSelectedResourcer(List<Resource> selectedResourcer) {
+    public void setSelectedResourcer(List<String> selectedResourcer) {
         this.selectedResourcer = selectedResourcer;
     }
 
@@ -153,8 +153,6 @@ public class ScheduleView implements Serializable {
         Aktivitet a = (Aktivitet) event.getData();
         String sted = a.getSted();
         int interval = a.getInterval();
-        
-
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
@@ -214,18 +212,14 @@ public class ScheduleView implements Serializable {
  
     public void applyFilter(){
         System.out.println("scheduleView.applyFilter()");
-        ArrayList<PersonResource> list = new ArrayList<>();
-        System.out.println("list.addAll(ms)");
+        ArrayList<String> list = new ArrayList<>();
         list.addAll(selectedMedarbejdere);
-//        System.out.println("list.addAll(bs) " + selectedMedarbejdere.get(0).getClass());
         list.addAll(selectedBeboere);
-        System.out.println("list.addAll(rs)");
         list.addAll(selectedResourcer);
-        System.out.println("list: " + list.toString());
-        eventModel.applyFilters(list);
+        System.out.println("ScheduleVies applyFilter() list: " + list.toString());
+        eventModel.applyFilters(service.getPersonResourcerMedId(list));
     }
-	
-
+    
     public List<Beboer> getOpretaktivitetbeboere() {
         return new ArrayList(opretaktivitetbeboere);
     }

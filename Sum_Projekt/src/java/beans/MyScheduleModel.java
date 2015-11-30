@@ -67,8 +67,11 @@ public class MyScheduleModel extends DefaultScheduleModel {
         System.out.println(getEventCount());
         System.out.println("filters: " + Arrays.toString(filters.toArray()));
         
-        for(String pr : filters){
-            System.out.println(pr);
+        for(PersonResource pr : filters){
+            aktiviteter.addAll(pr.getAktiviteter());
+        }
+        for(Aktivitet a : aktiviteter){
+            addEvent(a);
         }
     }
 

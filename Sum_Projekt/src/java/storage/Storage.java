@@ -10,7 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.Aktivitet;
 import model.Beboer;
 import model.Medarbejder;
@@ -20,18 +22,18 @@ import model.Resource;
 
 public class Storage implements Serializable{
 
-    private List<Beboer> beboere;
+    private Map<String, Beboer> beboere;
     private List<Aktivitet> aktiviteter;
-    private List<Medarbejder> medarbejdere;
-    private List<Resource> resourcer;
+    private Map<String, Medarbejder> medarbejdere;
+    private Map<String, Resource> resourcer;
     private List<Note> noter;
     private static Storage instance;
 
     private Storage() {
-        beboere = new ArrayList<Beboer>();
+        beboere = new HashMap<String, Beboer>();
         aktiviteter = new ArrayList<Aktivitet>();
-        medarbejdere = new ArrayList<Medarbejder>();
-        resourcer = new ArrayList<Resource>();
+        medarbejdere = new HashMap<String, Medarbejder>();
+        resourcer = new HashMap<String, Resource>();
         noter = new ArrayList<Note>();
         initStorage();
     }
@@ -44,15 +46,15 @@ public class Storage implements Serializable{
     }
 
     public List<Beboer> getBeboere() {
-        return new ArrayList<>(beboere);
+        return new ArrayList<>(beboere.values());
     }
 
-    public void setBeboerer(List<Beboer> beboerer) {
-        this.beboere = beboerer;
-    }
+//    public void setBeboerer(List<Beboer> beboerer) {
+//        this.beboere = beboerer;
+//    }
 
     public Beboer addBeboer(Beboer beboer) {
-        beboere.add(beboer);
+        beboere.put(beboer.getId(), beboer);
         return beboer;
     }
 
@@ -79,25 +81,25 @@ public class Storage implements Serializable{
     }
 
     public List<Medarbejder> getMedarbejdere() {
-        return new ArrayList<>(medarbejdere);
+        return new ArrayList<>(medarbejdere.values());
     }
-
-    public void setMedarbejdere(List<Medarbejder> medarbejdere) {
-        this.medarbejdere = medarbejdere;
-    }
+//
+//    public void setMedarbejdere(List<Medarbejder> medarbejdere) {
+//        this.medarbejdere = medarbejdere;
+//    }
 
     public Medarbejder addMedarbejder(Medarbejder m) {
-        medarbejdere.add(m);
+        medarbejdere.put(m.getId(), m);
         return m;
     }
 
     public List<Resource> getResourcer() {
-        return new ArrayList<>(resourcer);
+        return new ArrayList<>(resourcer.values());
     }
 
-    public void setRessourcer(List<Resource> ressourcer) {
-        this.resourcer = ressourcer;
-    }
+//    public void setRessourcer(List<Resource> ressourcer) {
+//        this.resourcer = ressourcer;
+//    }
 
     public void addNote(Note n) {
         noter.add(n);
@@ -107,6 +109,18 @@ public class Storage implements Serializable{
         return new ArrayList<>(noter);
     }
 
+    public PersonResource getPersonResource(String id){
+        if(id.matches("m.")){
+            return medarbejdere.get(id);
+        }else if(id.matches("b.")){
+            return beboere.get(id);
+        }else if(id.matches("r.")){
+            return resourcer.get(id);
+        }else{
+            System.out.println("id ikke fundet " + id);
+            return null;
+        }
+    }
     public List<Aktivitet> getAktiviteterPaaDag(LocalDate ldt) {
         List<Aktivitet> result = new ArrayList<Aktivitet>();
 //        Systems.out.println("Storage " + aktiviteter.size());
@@ -137,11 +151,9 @@ public class Storage implements Serializable{
         Beboer b3 = addBeboer(new Beboer("Merete"));
         Beboer b4 = addBeboer(new Beboer("Lis"));
         Beboer b5 = addBeboer(new Beboer("Ralf"));
-
         
         Resource r1 = new Resource();
         r1.setBil(true);
-
 
         Medarbejder m1 = addMedarbejder(new Medarbejder("Anette"));
         Medarbejder m2 = addMedarbejder(new Medarbejder("Louise"));
@@ -163,7 +175,6 @@ public class Storage implements Serializable{
         a2.setStartdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
         a2.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(12, 0)));
         a2.setTitel("Bostøtte");
-
 
         temp.clear(); 
         temp.add(b2);
