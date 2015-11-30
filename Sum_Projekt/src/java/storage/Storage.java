@@ -122,6 +122,9 @@ public class Storage {
         
         Beboer b1 = addBeboer(new Beboer("Alice"));
         Beboer b2 = addBeboer(new Beboer("Bob"));
+        
+        Resource r1 = new Resource();
+        r1.setBil(true);
 
         Medarbejder m1 = addMedarbejder(new Medarbejder("Anette"));
         Medarbejder m2 = addMedarbejder(new Medarbejder("Louise"));
@@ -133,6 +136,7 @@ public class Storage {
         a1.setSlutdato(LocalDateTime.now().plusHours(4));
         a1.setTitel("Bjerge");
         a1.setNote("Jaer. Og gud sagde Moses Moses!");
+        a1.addPersonRessource(r1);
         addAktivitet(a1);
 
         Aktivitet a2 = new Aktivitet();

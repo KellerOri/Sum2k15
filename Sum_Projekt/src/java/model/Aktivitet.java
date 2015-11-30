@@ -38,9 +38,9 @@ public class Aktivitet {
         personresourcer.add(pr);
     }
 
-    public List<PersonResource> getPersonResourcer() {
-        return new ArrayList<PersonResource>(personresourcer);
-    }
+//    public List<PersonResource> getPersonResourcer() {
+//        return new ArrayList<PersonResource>(personresourcer);
+//    }
 
     public LocalDateTime getStart() {
         return start;
@@ -107,5 +107,15 @@ public class Aktivitet {
         this.interval = interval;
     }
 
-    
+
+    public boolean hasBil(){
+        Resource temp = new Resource();
+        for (PersonResource pr : personresourcer){
+            if (pr.getClass() == Resource.class){
+                temp = (Resource) pr;
+            }
+        }
+        return temp.isBil();
+    }
+
 }

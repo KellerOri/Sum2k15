@@ -41,5 +41,7 @@ public class Beboer implements PersonResource{
         return navn;
     }
     
+    }  
+
     
-}
+

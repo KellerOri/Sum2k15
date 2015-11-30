@@ -10,5 +10,6 @@ package model;
  * @author Arthur
  */
 public interface PersonResource {
+   
     
 }
