@@ -54,11 +54,14 @@ public class Beboer implements PersonResource, Serializable{
 
     public void setNoter(String noter) {
         this.noter = noter;
+
     }
     
     @Override
     public String toString(){
         return navn + ", " + aktiviteter.size();
     }
+
+
     
 }

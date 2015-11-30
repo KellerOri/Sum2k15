@@ -84,4 +84,14 @@ public class Aktivitet implements Serializable{
     public String toString(){
         return titel + ": " + beskrivelse;
     }
+    
+    public boolean hasBil(){
+        Resource temp = new Resource();
+        for (PersonResource pr : personresourcer){
+            if (pr.getClass() == Resource.class){
+                temp = (Resource) pr;
+            }
+        }
+        return temp.isBil();
+    }
 }

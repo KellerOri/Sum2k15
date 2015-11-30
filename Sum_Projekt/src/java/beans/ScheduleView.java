@@ -25,8 +25,11 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import model.Aktivitet;
 import model.Beboer;
-import model.Medarbejder;
 import model.PersonResource;
+
+import java.util.ArrayList;
+import model.Medarbejder;
+
 import model.Resource;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -47,14 +50,22 @@ public class ScheduleView implements Serializable {
     Service service;
     private MyScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
+
     
     private ScheduleEvent event;
     
     private List<Medarbejder> selectedMedarbejdere;
     private List<Beboer> selectedBeboere;
     private List<Resource> selectedResourcer;
-    
-    @PostConstruct
+
+    private List<Beboer> opretaktivitetbeboere = new ArrayList<>();
+    private List<Medarbejder> opretaktivitetmedarbejdere = new ArrayList<>();
+    private List<Resource> opretaktivitetressource = new ArrayList<>();
+
+    public ScheduleView() {
+        this.event = new DefaultScheduleEvent();
+    }
+
     public void init() {
 //        eventModel = new DefaultScheduleModel();
         event = new DefaultScheduleEvent();
@@ -88,25 +99,40 @@ public class ScheduleView implements Serializable {
         this.selectedResourcer = selectedResourcer;
     }
 
+    public Date getRandomDate(Date base) {
+        Calendar date = Calendar.getInstance();
+        date.setTime(base);
+        date.add(Calendar.DATE, ((int) (Math.random() * 30)) + 1);    //set random day of month
+
+        return date.getTime();
+    }
+
     public Date getInitialDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
-        
+
         return calendar.getTime();
     }
-    
+
     public ScheduleModel getEventModel() {
         return eventModel;
     }
-    
+
     public ScheduleModel getLazyEventModel() {
         return lazyEventModel;
     }
- 
+
+    private Calendar today() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
+
+        return calendar;
+    }
+
     public ScheduleEvent getEvent() {
         return event;
     }
-    
+
     public void setEvent(ScheduleEvent event) {
         this.event = event;
     }
@@ -131,35 +157,50 @@ public class ScheduleView implements Serializable {
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
     }
-    
+
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
-    
+
     public void onEventMove(ScheduleEntryMoveEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
-        
+
         addMessage(message);
     }
-    
+
     public void onEventResize(ScheduleEntryResizeEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
         addMessage(message);
     }
-    
+
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
+//    private void hasBil(){     
+//        for (ScheduleEvent event : eventModel.getEvents()){
+//            event.getData()          
+//            
+//        }
+//    }
+
+
     private void loadEvents() {
         eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         for (Aktivitet a : aktiviteter) {
+
             eventModel.addEvent(new DefaultScheduleEvent(a.toString(),
                     Service.localDateTimetoDate(a.getStart()), Service.localDateTimetoDate(a.getSlut()), a));
+
+//            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
+            eventModel.addEvent(new DefaultScheduleEvent(a.toString(), 
+                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a));
+
         }
 
     }
+
     
     public void test(){
         System.out.println("Test() eventcount: " + eventModel.getEventCount());
@@ -182,4 +223,29 @@ public class ScheduleView implements Serializable {
         eventModel.applyFilters(list);
     }
 	
+
+    public List<Beboer> getOpretaktivitetbeboere() {
+        return new ArrayList(opretaktivitetbeboere);
+    }
+
+    public void setOpretaktivitetbeboere(List<Beboer> opretaktivitetbeboere) {
+        this.opretaktivitetbeboere = opretaktivitetbeboere;
+    }
+
+    public List<Medarbejder> getOpretaktivitetmedarbejdere() {
+        return new ArrayList(opretaktivitetmedarbejdere);
+    }
+
+    public void setOpretaktivitetmedarbejdere(List<Medarbejder> opretaktivitetmedarbejdere) {
+        this.opretaktivitetmedarbejdere = opretaktivitetmedarbejdere;
+    }
+
+    public List<Resource> getOpretaktivitetressource() {
+        return new ArrayList(opretaktivitetressource);
+    }
+
+    public void setOpretaktivitetressource(List<Resource> opretaktivitetressource) {
+        this.opretaktivitetressource = opretaktivitetressource;
+    }
+
 }

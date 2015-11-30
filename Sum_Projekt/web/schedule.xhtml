@@ -8,7 +8,10 @@
         <f:facet name="first">
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
             <h:outputStylesheet library="css" name="style.css"/>
+<<<<<<< HEAD
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"/>
+=======
+>>>>>>> 967b79bdc6673ca05dc11052e5dffa80a93eb4f1
             <title>Kalender</title>
         </f:facet>
     </h:head>
@@ -16,6 +19,7 @@
         <h1 align="center">
             Kalender
         </h1>
+<<<<<<< HEAD
         <div id="navPanel">
             <h:commandButton value="Kalender" disabled="true">
             </h:commandButton>
@@ -97,4 +101,129 @@
         </div>
 
     </h:body>
+=======
+        <p align="center">
+        <h:commandButton value="Kalender" disabled="true">
+        </h:commandButton>
+        <h:commandButton value="Dagsseddel" onclick="location.href = 'dagsseddel.xhtml'">
+        </h:commandButton>
+    </p>
+    <table align="center" >
+        <tr>
+            <td>
+        <h:dataTable border="1" value="#{service.medarbejdere}"  var="medarbejder" style="width:350px">
+            <h:column headerClass="header" >
+                <f:facet name ="header">Medarbejder</f:facet>
+
+                #{medarbejder.navn}
+
+                <h:selectBooleanCheckbox>
+                    <f:ajax/>
+                </h:selectBooleanCheckbox>
+
+            </h:column>      
+
+        </h:dataTable>
+        </td>
+        <td>
+        <h:dataTable border="1" value="#{service.beboere}"  var="beboer" style="width:350px">
+
+            <h:column headerClass="header">
+                <f:facet name ="header">Beboer</f:facet>
+
+                #{beboer.navn}
+                <h:selectBooleanCheckbox>
+                    <f:ajax/>
+                </h:selectBooleanCheckbox>
+
+            </h:column>
+
+        </h:dataTable>
+        </td>
+        <td>
+        <h:dataTable border="1" value="" var="ressourcer" style="width:350px">
+            <h:column headerClass="header" >
+                <f:facet name ="header">Ressourcer</f:facet>
+
+
+
+                <h:selectBooleanCheckbox>
+                    <f:ajax/>
+                </h:selectBooleanCheckbox>
+
+            </h:column>      
+
+        </h:dataTable>
+
+        </td>
+        </tr>
+    </table>
+
+    <p> &nbsp; </p>
+    <h:form>
+        <p:schedule value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
+            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" />
+            <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" />
+        </p:schedule>
+        <p:dialog widgetVar="eventDialog" header="Opret Aktivitet" showEffect="clip" hideEffect="clip">
+            <h:panelGrid id="eventDetails" columns="2">
+                <p:outputLabel for="title" value="Titel:" />
+                <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
+
+                <p:outputLabel value="Noter:" />
+                <textarea id="noter" rows="4" cols="23"/>
+
+                <p:outputLabel for="sted" value="Sted:" />
+                <p:inputText id="sted" />
+
+                <p:outputLabel for="from" value="Fra:" />
+                <p:calendar id="from" value="#{scheduleView.event.startDate}" timeZone="CET" pattern="dd/MM/yyyy HH:mm"/>
+
+                <p:outputLabel for="to" value="Til:" />
+                <p:calendar id="to" value="#{scheduleView.event.endDate}" timeZone="CET" pattern="dd/MM/yyyy HH:mm"/>
+
+                <p:outputLabel for="gen" value="Interval (i dage):" />
+                <p:inputText id="gen" />
+
+            </h:panelGrid>
+            <hr/>
+            <p id="personressourcer">
+                Personressourcer: 
+            </p>
+            <hr/>
+            <p:outputLabel for="persons" value="Personer:" />
+            <h:outputText id="persons" />
+            <h:panelGrid columns="3">
+                <p:selectManyMenu id="beboere" value="#{scheduleView.opretaktivitetbeboere}"
+                                  var="b" filter="true" filterMatchMode="contains" showCheckbox="true">
+                    <f:selectItems value="#{service.beboere}" var="beboer" itemLabel="#{beboer.navn}" itemValue="#{beboer}" />
+                    <p:column>
+                        <h:outputText value="#{b.navn}" />
+                    </p:column>
+                </p:selectManyMenu>
+                <p:selectManyMenu id="medarbejdere" value="#{scheduleView.opretaktivitetmedarbejdere}"
+                                  var="m" filter="true" filterMatchMode="contains" showCheckbox="true">
+                    <f:selectItems value="#{service.medarbejdere}" var="medarbejder" itemLabel="#{medarbejder.navn}" itemValue="#{medarbejder}" />
+                    <p:column>
+                        <h:outputText value="#{m.navn}" />
+                    </p:column>
+                </p:selectManyMenu>
+                <p:selectManyMenu id="ressourcer" value="#{scheduleView.opretaktivitetressource}"
+                                  var="r" filter="true" filterMatchMode="contains" showCheckbox="true">
+                    <f:selectItems value="#{service.resourcer}" var="resource" itemLabel="#{resource.navn}" itemValue="#{resource}" />
+                    <p:column>
+                        <h:outputText value="#{r.navn}" />
+                    </p:column>
+                </p:selectManyMenu>
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <p:commandButton type="reset" value="Nulstil" />
+                <p:commandButton id="addButton" value="Gem" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
+</h:body>
+>>>>>>> 967b79bdc6673ca05dc11052e5dffa80a93eb4f1
 </html>

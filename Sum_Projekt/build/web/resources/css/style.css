@@ -24,6 +24,7 @@ body{
 [id="j_idt11:0:calendar"] {
     padding: 15px;
 }
+
 #schedulecontainer{
 
 }
@@ -35,4 +36,9 @@ body{
     float: right;
     width: 75%;
 }
+#personressourcer {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0.0em;
 
+}

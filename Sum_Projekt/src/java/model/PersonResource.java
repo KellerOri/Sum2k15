@@ -12,7 +12,10 @@ import java.util.List;
  *
  * @author Arthur
  */
+
 public interface PersonResource extends Serializable{
     public Aktivitet addAktivitet(Aktivitet a);
     public List<Aktivitet> getAktiviteter();
+
+
 }

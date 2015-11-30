@@ -133,9 +133,15 @@ public class Storage implements Serializable{
         
         Beboer b1 = addBeboer(new Beboer("Alice"));
         Beboer b2 = addBeboer(new Beboer("Bob"));
+
         Beboer b3 = addBeboer(new Beboer("Merete"));
         Beboer b4 = addBeboer(new Beboer("Lis"));
         Beboer b5 = addBeboer(new Beboer("Ralf"));
+
+        
+        Resource r1 = new Resource();
+        r1.setBil(true);
+
 
         Medarbejder m1 = addMedarbejder(new Medarbejder("Anette"));
         Medarbejder m2 = addMedarbejder(new Medarbejder("Louise"));
@@ -145,10 +151,15 @@ public class Storage implements Serializable{
         a1.setSlutdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 0)));
         a1.setTitel("Bjerge");
         a1.setBeskrivelse("Jaer. Og gud sagde Moses Moses!");
+
         temp.clear();
         temp.add(b1);
         temp.add(m1);
         addAktivitet(a1, temp);
+
+        a1.addPersonRessource(r1);
+        addAktivitet(a1);
+
 
         Aktivitet a2 = new Aktivitet();
         a2.setStartdato(LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
