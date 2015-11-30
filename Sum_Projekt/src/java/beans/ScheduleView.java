@@ -51,7 +51,6 @@ public class ScheduleView implements Serializable {
     Service service;
     private MyScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
-
     
     private ScheduleEvent event;
     
@@ -64,14 +63,10 @@ public class ScheduleView implements Serializable {
     private List<Resource> opretaktivitetressource = new ArrayList<>();
     private List<String> personeriaktivitet = new ArrayList<>();
 
-    public ScheduleView() {
-        this.event = new DefaultScheduleEvent();
-    }
-
+    @PostConstruct
     public void init() {
-//        eventModel = new DefaultScheduleModel();
         event = new DefaultScheduleEvent();
-        eventModel = new MyScheduleModel(service);
+        eventModel = new MyScheduleModel(service);  
         loadEvents();
     }
 
