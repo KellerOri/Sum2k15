@@ -14,6 +14,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import model.*;
@@ -25,29 +27,25 @@ import storage.Storage;
 public class Service implements Serializable {
 
     private final Storage storage;
-
+    private static int idcounter;
     public Service() {
         storage = Storage.getInstance();
+        idcounter = 0;
     }
 
     public List<Aktivitet> getAktiviteter() {
         return storage.getAktiviteter();
     }
 
-//    public void createAktivitet(DefaultScheduleEvent event) {
-//        Aktivitet a = new Aktivitet(event);
-//        storage.createAktivitet(a);
-//    }
-
     public void addAktivitet(Aktivitet aktivitet) {
         storage.addAktivitet(aktivitet);
     }
-
+    
+    public static int getnewId(){
+        return idcounter++;
+    }
     
     public Aktivitet createAktivitet(String title, String note, int interval, String sted, Date start, Date slut){
-
-
-   
         Aktivitet a = new Aktivitet();
         a.setTitel(title);
         a.setNote(note);
@@ -108,6 +106,19 @@ public class Service implements Serializable {
         return storage.getAktiviteterPaaDag(ldt);
     }
 
+    
+    public List<PersonResource> getPersonResourcerMedId(List<String> list){
+        ArrayList<PersonResource> prs = new ArrayList<PersonResource>();
+        String regex = "\\S+";
+        Pattern p = Pattern.compile(regex);
+        Matcher m;
+        for(String s : list){
+            m = p.matcher(s);
+            m.find();
+            prs.add(storage.getPersonResource(m.group()));
+        }
+        return prs;
+    }
     public static final LocalDateTime dateToLocalDate(Date date) {
         Instant instant = Instant.ofEpochMilli(date.getTime());
         LocalDateTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());

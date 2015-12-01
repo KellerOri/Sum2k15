@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import service.Service;
 
 /**
  *
@@ -18,8 +19,10 @@ public class Medarbejder implements PersonResource, Serializable{
 
     private String navn;
     private List<Aktivitet> aktiviteter;
+    private String id;
     public Medarbejder() {
         aktiviteter = new ArrayList<Aktivitet>();
+        this.id = "m" + Service.getnewId();
     }
 
     public Medarbejder(String navn) {
@@ -54,10 +57,11 @@ public class Medarbejder implements PersonResource, Serializable{
  
     @Override
     public String toString(){
-        return navn + ", " + aktiviteter.size();
+        return id + " " + navn + " " + aktiviteter.size();
     }
 
-
-
-
+    @Override
+    public String getId() {
+        return id;
+    }
 }

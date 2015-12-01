@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import service.Service;
 
 /**
  *
@@ -15,9 +16,12 @@ import java.util.List;
 public class Resource implements PersonResource{
 
     private ArrayList<Aktivitet> aktiviteter;
-
+    private String id;
+    private String navn;
     public Resource() {
         aktiviteter = new ArrayList<>();
+        id="r" + Service.getnewId();
+        navn = "random";
     }
     
     @Override
@@ -60,4 +64,14 @@ public class Resource implements PersonResource{
            return "Ingen Resource";
        }
    } 
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String getNavn() {
+        return navn;
+    }
 }
