@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,7 +13,7 @@ import java.time.LocalTime;
  *
  * @author Christian
  */
-public class Note {
+public class Note implements Serializable{
 
     private Beboer beboer;
     private LocalDate dag;

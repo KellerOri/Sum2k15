@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,14 +16,16 @@ import java.util.Set;
  *
  * @author Andromeda
  */
-public class Aktivitet {
+public class Aktivitet implements Serializable{
 
     private Set<PersonResource> personresourcer;
     private LocalDateTime start;
     private LocalDateTime slut;
-    private String beskrivelse;
+    private String note;
     private String titel;
-    
+    private String sted;
+    private int interval;
+   
     public Aktivitet() {
         personresourcer = new HashSet<PersonResource>();
     }
@@ -64,12 +67,12 @@ public class Aktivitet {
         this.personresourcer = personresourcer;
     }
 
-    public String getBeskrivelse() {
-        return beskrivelse;
+    public String getNote() {
+        return note;
     }
 
-    public void setBeskrivelse(String beskrivelse) {
-        this.beskrivelse = beskrivelse;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getTitel() {
@@ -82,9 +85,31 @@ public class Aktivitet {
   
     @Override
     public String toString(){
-        return titel + ": " + beskrivelse;
+        return titel + ": " + note;
     }
-    
+    public void addPersonResourcer(List l) {
+        for (int i = 0; i < l.size(); i++) {
+            personresourcer.add((PersonResource)l.get(i));
+        }
+    }
+
+    public String getSted() {
+        return sted;
+    }
+
+    public void setSted(String sted) {
+        this.sted = sted;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    public void setInterval(int interval) {
+        this.interval = interval;
+    }
+
+
     public boolean hasBil(){
         Resource temp = new Resource();
         for (PersonResource pr : personresourcer){
@@ -94,4 +119,5 @@ public class Aktivitet {
         }
         return temp.isBil();
     }
+
 }

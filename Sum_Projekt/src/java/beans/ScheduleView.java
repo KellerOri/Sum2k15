@@ -5,23 +5,34 @@
  */
 package beans;
 
+
 import java.awt.Image;
+import com.sun.javafx.scene.control.SelectedCellsMap;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import model.Aktivitet;
 import model.Beboer;
+import model.PersonResource;
+
 import java.util.ArrayList;
 import model.Medarbejder;
+import model.PersonResource;
+
 import model.Resource;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -40,23 +51,57 @@ public class ScheduleView implements Serializable {
 
     @Inject
     Service service;
-    private ScheduleModel eventModel;
+    private MyScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
 
+
     private DefaultScheduleEvent event = new DefaultScheduleEvent();
+
+    
+    private List<Medarbejder> selectedMedarbejdere;
+    private List<Beboer> selectedBeboere;
+    private List<Resource> selectedResourcer;
 
     private List<Beboer> opretaktivitetbeboere = new ArrayList<>();
     private List<Medarbejder> opretaktivitetmedarbejdere = new ArrayList<>();
     private List<Resource> opretaktivitetressource = new ArrayList<>();
+    private List<String> personeriaktivitet = new ArrayList<>();
 
-    @PostConstruct
+    public ScheduleView() {
+        this.event = new DefaultScheduleEvent();
+    }
+
     public void init() {
-        eventModel = new DefaultScheduleModel();
+//        eventModel = new DefaultScheduleModel();
+        event = new DefaultScheduleEvent();
+        eventModel = new MyScheduleModel(service);
         loadEvents();
-//        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-//        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-//        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
-//        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm())); 
+    }
+
+    public List<Medarbejder> getSelectedMedarbejdere() {
+        return selectedMedarbejdere;
+    }
+
+    public void setSelectedMedarbejdere(List<Medarbejder> selectedMedarbejdere) {
+        
+        this.selectedMedarbejdere = selectedMedarbejdere;
+ 
+    }
+
+    public List<Beboer> getSelectedBeboere() {
+        return selectedBeboere;
+    }
+
+    public void setSelectedBeboere(List<Beboer> selectedBeboere) {
+        this.selectedBeboere = selectedBeboere;
+    }
+
+    public List<Resource> getSelectedResourcer() {
+        return selectedResourcer;
+    }
+
+    public void setSelectedResourcer(List<Resource> selectedResourcer) {
+        this.selectedResourcer = selectedResourcer;
     }
 
     public Date getRandomDate(Date base) {
@@ -89,76 +134,6 @@ public class ScheduleView implements Serializable {
         return calendar;
     }
 
-    private Date previousDay8Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-        t.set(Calendar.HOUR, 8);
-
-        return t.getTime();
-    }
-
-    private Date previousDay11Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-        t.set(Calendar.HOUR, 11);
-
-        return t.getTime();
-    }
-
-    private Date today1Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 1);
-
-        return t.getTime();
-    }
-
-    private Date theDayAfter3Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 2);
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 3);
-
-        return t.getTime();
-    }
-
-    private Date today6Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 6);
-
-        return t.getTime();
-    }
-
-    private Date nextDay9Am() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.AM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 1);
-        t.set(Calendar.HOUR, 9);
-
-        return t.getTime();
-    }
-
-    private Date nextDay11Am() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.AM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 1);
-        t.set(Calendar.HOUR, 11);
-
-        return t.getTime();
-    }
-
-    private Date fourDaysLater3pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 4);
-        t.set(Calendar.HOUR, 3);
-
-        return t.getTime();
-    }
-
     public ScheduleEvent getEvent() {
         return event;
     }
@@ -176,11 +151,18 @@ public class ScheduleView implements Serializable {
 //        event = new DefaultScheduleEvent();
 //    }
     public void addEvent(ActionEvent actionEvent) {
+//        if(model !contains event)
         String title = event.getTitle();
-        String beskrivelse = event.getDescription();
+        String note = event.getDescription();
         Date start = event.getStartDate();
         Date slut = event.getEndDate();
-        service.addAktivitet(title, beskrivelse, start, slut);
+
+        
+        Aktivitet a = (Aktivitet) event.getData();
+        String sted = a.getSted();
+        int interval = a.getInterval();
+        
+
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
@@ -209,10 +191,11 @@ public class ScheduleView implements Serializable {
     
 
     private void loadEvents() {
+        eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
-        System.out.println(aktiviteter.size());
         for (Aktivitet a : aktiviteter) {
-//            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
+
+      
            DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), 
                     service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
             if(a.hasBil()) {
@@ -221,7 +204,31 @@ public class ScheduleView implements Serializable {
             } 
             eventModel.addEvent(temp);
         }
+
     }
+
+    
+    public void test(){
+        System.out.println("Test() eventcount: " + eventModel.getEventCount());
+        System.out.println("m: " + Arrays.toString(selectedMedarbejdere.toArray()));
+        System.out.println("b: " + Arrays.toString(selectedBeboere.toArray()));
+        applyFilter();
+        System.out.println("Test() eventcount: " + eventModel.getEventCount());
+    }
+ 
+    public void applyFilter(){
+        System.out.println("scheduleView.applyFilter()");
+        ArrayList<PersonResource> list = new ArrayList<>();
+        System.out.println("list.addAll(ms)");
+        list.addAll(selectedMedarbejdere);
+        System.out.println("list.addAll(bs)");
+        list.addAll(selectedBeboere);
+        System.out.println("list.addAll(rs)");
+        list.addAll(selectedResourcer);
+        System.out.println("list: " + list.toString());
+        eventModel.applyFilters(list);
+    }
+	
 
     public List<Beboer> getOpretaktivitetbeboere() {
         return new ArrayList(opretaktivitetbeboere);
@@ -247,4 +254,19 @@ public class ScheduleView implements Serializable {
         this.opretaktivitetressource = opretaktivitetressource;
     }
 
+    public List<String> getPersoneriaktivitet() {
+        return new ArrayList(personeriaktivitet);
+    }
+
+    public void setPersoneriaktivitet(List<String> personeriaktivitet) {
+        this.personeriaktivitet = personeriaktivitet;
+    }
+
+    public List allepersoneriaktivitet() {
+        List<PersonResource> combined = new ArrayList<>();
+        combined.addAll(opretaktivitetbeboere);
+        combined.addAll(opretaktivitetmedarbejdere);
+        combined.addAll(opretaktivitetressource);
+        return combined;
+    }
 }

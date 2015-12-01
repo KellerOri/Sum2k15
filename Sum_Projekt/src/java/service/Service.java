@@ -34,22 +34,44 @@ public class Service implements Serializable {
         return storage.getAktiviteter();
     }
 
-//    public void addAktivitet(DefaultScheduleEvent event) {
+//    public void createAktivitet(DefaultScheduleEvent event) {
 //        Aktivitet a = new Aktivitet(event);
-//        storage.addAktivitet(a);
+//        storage.createAktivitet(a);
 //    }
 
     public void addAktivitet(Aktivitet aktivitet) {
         storage.addAktivitet(aktivitet);
     }
 
-    public void addAktivitet(String title, String beskrivelse, Date start, Date slut){
+    
+    public Aktivitet createAktivitet(String title, String note, int interval, String sted, Date start, Date slut){
+
+
+   
         Aktivitet a = new Aktivitet();
         a.setTitel(title);
-        a.setBeskrivelse(beskrivelse);
+        a.setNote(note);
         a.setStartdato(dateToLocalDate(start));
         a.setSlutdato(dateToLocalDate(slut));
+        a.setInterval(interval);
+        a.setSted(sted);
         addAktivitet(a);
+        return a;
+    }
+    
+    public Aktivitet createAktivitet(String title, String beskrivelse, Date start, Date slut, List<PersonResource> resourcer){
+        Aktivitet a = new Aktivitet();
+        a.setTitel(title);
+        a.setNote(beskrivelse);
+        a.setStartdato(dateToLocalDate(start));
+        a.setSlutdato(dateToLocalDate(slut));
+        
+        for(PersonResource pr : resourcer){
+            pr.addAktivitet(a);
+            a.addPersonRessource(pr);
+        }
+        addAktivitet(a);
+        return a;
     }
     
     public Beboer addBeboer(String navn) {
@@ -86,13 +108,13 @@ public class Service implements Serializable {
         return storage.getAktiviteterPaaDag(ldt);
     }
 
-    public LocalDateTime dateToLocalDate(Date date) {
+    public static final LocalDateTime dateToLocalDate(Date date) {
         Instant instant = Instant.ofEpochMilli(date.getTime());
         LocalDateTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         return res;
     }
 
-    public Date localDateTimetoDate(LocalDateTime ldt) {
+    public static final Date localDateTimetoDate(LocalDateTime ldt) {
         Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
         Date res = Date.from(instant);
         return res;

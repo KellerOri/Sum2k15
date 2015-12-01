@@ -5,18 +5,35 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Andromeda
  */
 public class Resource implements PersonResource{
+
+    private ArrayList<Aktivitet> aktiviteter;
+
+    public Resource() {
+        aktiviteter = new ArrayList<>();
+    }
+    
+    @Override
+    public Aktivitet addAktivitet(Aktivitet a) {
+        aktiviteter.add(a);
+        return a;
+    }
+
+    @Override
+    public List<Aktivitet> getAktiviteter() {
+        return new ArrayList<Aktivitet>(aktiviteter);
+    }
+   
     private boolean bil;
     private boolean mødelokale;
     
-    public Resource(){
-        
-    }
-
     public boolean isBil() {
         return bil;
     }
@@ -33,6 +50,7 @@ public class Resource implements PersonResource{
         this.mødelokale = mødelokale;
     }
     
+    @Override
    public String toString(){
        if (isBil()){
            return "Bil";
