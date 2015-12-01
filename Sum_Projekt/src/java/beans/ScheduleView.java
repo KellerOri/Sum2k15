@@ -5,7 +5,6 @@
  */
 package beans;
 
-
 import java.awt.Image;
 import com.sun.javafx.scene.control.SelectedCellsMap;
 import java.io.Serializable;
@@ -54,54 +53,46 @@ public class ScheduleView implements Serializable {
     private MyScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
 
-    private DefaultScheduleEvent event = new DefaultScheduleEvent();
+    private DefaultScheduleEvent event;
 
-    
-
-    private List<Medarbejder> selectedMedarbejdere;
-    private List<Beboer> selectedBeboere;
-    private List<Resource> selectedResourcer;
+    private List<String> selectedMedarbejdere;
+    private List<String> selectedBeboere;
+    private List<String> selectedResourcer;
 
     private List<Beboer> opretaktivitetbeboere = new ArrayList<>();
     private List<Medarbejder> opretaktivitetmedarbejdere = new ArrayList<>();
     private List<Resource> opretaktivitetressource = new ArrayList<>();
     private List<String> personeriaktivitet = new ArrayList<>();
 
-    public ScheduleView() {
-        this.event = new DefaultScheduleEvent();
-    }
-
     @PostConstruct
     public void init() {
-//        eventModel = new DefaultScheduleModel();
         event = new DefaultScheduleEvent();
         eventModel = new MyScheduleModel(service);
         loadEvents();
     }
 
-    public List<Medarbejder> getSelectedMedarbejdere() {
+    public List<String> getSelectedMedarbejdere() {
         return selectedMedarbejdere;
     }
 
-    public void setSelectedMedarbejdere(List<Medarbejder> selectedMedarbejdere) {
-
+    public void setSelectedMedarbejdere(List<String> selectedMedarbejdere) {
         this.selectedMedarbejdere = selectedMedarbejdere;
 
     }
 
-    public List<Beboer> getSelectedBeboere() {
+    public List<String> getSelectedBeboere() {
         return selectedBeboere;
     }
 
-    public void setSelectedBeboere(List<Beboer> selectedBeboere) {
+    public void setSelectedBeboere(List<String> selectedBeboere) {
         this.selectedBeboere = selectedBeboere;
     }
 
-    public List<Resource> getSelectedResourcer() {
+    public List<String> getSelectedResourcer() {
         return selectedResourcer;
     }
 
-    public void setSelectedResourcer(List<Resource> selectedResourcer) {
+    public void setSelectedResourcer(List<String> selectedResourcer) {
         this.selectedResourcer = selectedResourcer;
     }
 
@@ -144,6 +135,7 @@ public class ScheduleView implements Serializable {
     }
 
     public void addEvent(ActionEvent actionEvent) {
+
         if (event.getId() == null) {
             Aktivitet a = service.createAktivitet(event.getTitle(), event.getDescription(), (String) event.getData(), event.getStartDate(), event.getEndDate());
             event.setData(a);
@@ -153,7 +145,10 @@ public class ScheduleView implements Serializable {
 
         }
         event = new DefaultScheduleEvent();
+
+//        if(model !contains event)
     }
+
     public void deleteEvent(ActionEvent actionEvent) {
         if (event.getId() != null) {
             eventModel.deleteEvent(event);
@@ -176,6 +171,7 @@ public class ScheduleView implements Serializable {
 //        event = new DefaultScheduleEvent();
 //        loadEvents();
 //    }
+
     public void onEventSelect(SelectEvent selectEvent) {
         event = (DefaultScheduleEvent) selectEvent.getObject();
     }
@@ -205,30 +201,15 @@ public class ScheduleView implements Serializable {
 //            
 //        }
 //    }
-   
-    
-
-
     private void loadEvents() {
         eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         for (Aktivitet a : aktiviteter) {
-
-
-            eventModel.addEvent(new DefaultScheduleEvent(a.toString(),
-                    Service.localDateTimetoDate(a.getStart()), Service.localDateTimetoDate(a.getSlut()), a));
-
-            //        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", Service.localDateTimetoDate(a.getStart()), Service.localDateTimetoDate(a.getStart())));
-
-      
-           DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), 
-                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
-            if(a.hasBil()) {
+            DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+            if (a.hasBil()) {
                 temp.setStyleClass("bilEvent");
-                
-            } 
+            }
             eventModel.addEvent(temp);
-
         }
 
     }
@@ -237,21 +218,19 @@ public class ScheduleView implements Serializable {
         System.out.println("Test() eventcount: " + eventModel.getEventCount());
         System.out.println("m: " + Arrays.toString(selectedMedarbejdere.toArray()));
         System.out.println("b: " + Arrays.toString(selectedBeboere.toArray()));
+
         applyFilter();
         System.out.println("Test() eventcount: " + eventModel.getEventCount());
     }
 
     public void applyFilter() {
         System.out.println("scheduleView.applyFilter()");
-        ArrayList<PersonResource> list = new ArrayList<>();
-        System.out.println("list.addAll(ms)");
+        ArrayList<String> list = new ArrayList<>();
         list.addAll(selectedMedarbejdere);
-        System.out.println("list.addAll(bs)");
         list.addAll(selectedBeboere);
-        System.out.println("list.addAll(rs)");
         list.addAll(selectedResourcer);
-        System.out.println("list: " + list.toString());
-        eventModel.applyFilters(list);
+        System.out.println("ScheduleVies applyFilter() list: " + list.toString());
+        eventModel.applyFilters(service.getPersonResourcerMedId(list));
     }
 
     public List<Beboer> getOpretaktivitetbeboere() {

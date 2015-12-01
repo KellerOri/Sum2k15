@@ -19,64 +19,62 @@
         <h1 align="center">
             Kalender
         </h1>
-        <p align="center">
-        <h:commandButton value="Kalender" disabled="true">
-        </h:commandButton>
-        <h:commandButton value="Dagsseddel" onclick="location.href = 'dagsseddel.xhtml'">
-        </h:commandButton>
-    </p>
+
+        <div id="navPanel">
+            <h:commandButton value="Kalender" disabled="true">
+            </h:commandButton>
+            <h:commandButton value="Dagsseddel" onclick="location.href = 'dagsseddel.xhtml'">
+            </h:commandButton>
+        </div>
+        <div id="schedulecontainer">
+            <div id="filtercontainer">    
+                <h:form>
+                    <h2>Filtrering</h2>
+                    <p:commandButton id="btnSummit" value="Filter" actionListener="#{scheduleView.test}" oncomplete="PF('myschedule').update()"/>
+
+                    <br/>
+                    <label for="dropMedarbejder">Medarbejdere:</label>
+                    <p:selectManyMenu id="dropMedarbejder" value="#{scheduleView.selectedMedarbejdere}"
+                                      var="m" filter="true" filterMatchMode="contains" showCheckbox="true">
 
 
+                        <f:selectItems value="#{service.medarbejdere}" var="medarbejder" itemLabel="#{medarbejder.navn}" itemValue="#{medarbejder}"/>  
 
-    <p> &nbsp; </p>
-    <div id="schedulecontainer">
-        <div id="filtercontainer">    
-            <h:form>
-                <h2>Filtrering</h2>
-                <p:commandButton id="btnSummit" value="Filter" actionListener="#{scheduleView.test}" oncomplete="PF('myschedule').update()"/>
+                        <p:column>
+                            <h:outputText value="#{m.navn}" />
+                        </p:column>
+                    </p:selectManyMenu>
 
-                <br/>
-                <label for="dropMedarbejder">Medarbejdere:</label>
-                <p:selectManyMenu id="dropMedarbejder" value="#{scheduleView.selectedMedarbejdere}"
-                                  var="m" filter="true" filterMatchMode="contains" showCheckbox="true">
+                    <label for="dropBeboer">Beboere:</label>
+                    <p:selectManyMenu id="dropBeboere" value="#{scheduleView.selectedBeboere}"
+                                      var="b" filter="true" filterMatchMode="contains" showCheckbox="true">
+                        <f:selectItems value="#{service.beboere}" var="beboer" itemLabel="#{beboer.navn}" itemValue="#{beboer}" />
+                        <p:column>
+                            <h:outputText value="#{b.navn}" />
+                        </p:column>
+                    </p:selectManyMenu>
 
+                    <label for="dropResourcer">Resourcer</label>
+                    <p:selectManyMenu id="dropResourcer" value="#{scheduleView.selectedResourcer}"
+                                      var="r" filter="true" filterMatchMode="contains" showCheckbox="true">
+                        <f:selectItems value="#{service.resourcer}" var="resource" itemLabel="#{resource.navn}" itemValue="#{resource}" />
+                        <p:column>
+                            <h:outputText value="#{r}" />
+                        </p:column>
+                    </p:selectManyMenu>
+                </h:form>
+            </div> 
 
-                    <f:selectItems value="#{service.medarbejdere}" var="medarbejder" itemLabel="#{medarbejder.navn}" itemValue="#{medarbejder}"/>  
-
-                    <p:column>
-                        <h:outputText value="#{m.navn}" />
-                    </p:column>
-                </p:selectManyMenu>
-
-                <label for="dropBeboer">Beboere:</label>
-                <p:selectManyMenu id="dropBeboere" value="#{scheduleView.selectedBeboere}"
-                                  var="b" filter="true" filterMatchMode="contains" showCheckbox="true">
-                    <f:selectItems value="#{service.beboere}" var="beboer" itemLabel="#{beboer.navn}" itemValue="#{beboer}" />
-                    <p:column>
-                        <h:outputText value="#{b.navn}" />
-                    </p:column>
-                </p:selectManyMenu>
-
-                <label for="dropResourcer">Resourcer</label>
-                <p:selectManyMenu id="dropResourcer" value="#{scheduleView.selectedResourcer}"
-                                  var="r" filter="true" filterMatchMode="contains" showCheckbox="true">
-                    <f:selectItems value="#{service.resourcer}" var="resource" itemLabel="#{resource.navn}" itemValue="#{resource}" />
-                    <p:column>
-                        <h:outputText value="#{r}" />
-                    </p:column>
-                </p:selectManyMenu>
-            </h:form>
-        </div> 
-
-        <div id="calcontainer">
-            <h:form>
-                <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
-                    <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" />
-                    <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" />
-                </p:schedule>
-                <p:dialog widgetVar="eventDialog" header="Opret Aktivitet" showEffect="clip" hideEffect="clip">
+            <div id="calcontainer">
+                <h:form>
+                    <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
+                        <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                        <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                        <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" />
+                        <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" />
+                    </p:schedule>
+                    
+                                    <p:dialog widgetVar="eventDialog" header="Opret Aktivitet" showEffect="clip" hideEffect="clip">
                     <h:panelGrid id="eventDetails" columns="2">
                         <p:outputLabel for="title" value="Titel: " />
                         <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
@@ -137,16 +135,13 @@
                         <p:commandButton value="Slet" actionListener="#{scheduleView.deleteEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
                     </h:panelGrid>
                 </p:dialog>
-            </h:form>
-            <script>
+                    
+                </h:form>
+                <script>
                 $("<i class="'fa fa-car'"></i>").appendTo(("title"));
             </script>
-
-
+            </div> 
         </div>
-    </div> 
-
-
-</h:body>
+    </h:body>
 
 </html>
