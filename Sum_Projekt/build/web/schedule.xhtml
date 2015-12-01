@@ -6,6 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <f:facet name="first">
+            <link rel="stylesheet" href="resources/font-awesome-4.5.0/css/font-awesome.min.css"/>
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
             <h:outputStylesheet library="css" name="style.css"/>
             <title>Kalender</title>
@@ -67,14 +68,19 @@
             </h:column>      
 
         </h:dataTable>
+        <img src="bil.gif"></img>
+        <img src="Mødelokale.gif"></img>
 
         </td>
         </tr>
     </table>
-
+   
+    
     <p> &nbsp; </p>
+    
     <h:form>
-        <p:schedule value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
+        <p:schedule value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+1" >
+            
             <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
             <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
             <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" />
@@ -82,7 +88,8 @@
         </p:schedule>
         <p:dialog widgetVar="eventDialog" header="Opret Aktivitet" showEffect="clip" hideEffect="clip">
             <h:panelGrid id="eventDetails" columns="2">
-                <p:outputLabel for="title" value="Titel:" />
+                <p:outputLabel for="title" value="Titel:">
+                </p:outputLabel>
                 <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
 
                 <p:outputLabel value="Noter:" />
@@ -103,7 +110,7 @@
             </h:panelGrid>
             <hr/>
             <p id="personressourcer">
-                Personressourcer: 
+                Personressourcer: <i class="fa fa-car" rendered=".bilEvent"></i>
             </p>
             <hr/>
             <p:outputLabel for="persons" value="Personer:" />
@@ -137,5 +144,8 @@
             </h:panelGrid>
         </p:dialog>
     </h:form>
+    <script>
+        $("<i class="'fa fa-car'"></i>").appendTo(("title"));
+    </script>
 </h:body>
 </html>

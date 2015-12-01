@@ -80,6 +80,7 @@ public class Aktivitet {
         this.titel = titel;
     }
   
+    @Override
     public String toString(){
         return titel + ": " + beskrivelse;
     }

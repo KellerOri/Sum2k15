@@ -5,6 +5,7 @@
  */
 package beans;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -42,7 +43,7 @@ public class ScheduleView implements Serializable {
     private ScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
 
-    private ScheduleEvent event = new DefaultScheduleEvent();
+    private DefaultScheduleEvent event = new DefaultScheduleEvent();
 
     private List<Beboer> opretaktivitetbeboere = new ArrayList<>();
     private List<Medarbejder> opretaktivitetmedarbejdere = new ArrayList<>();
@@ -162,7 +163,7 @@ public class ScheduleView implements Serializable {
         return event;
     }
 
-    public void setEvent(ScheduleEvent event) {
+    public void setEvent(DefaultScheduleEvent event) {
         this.event = event;
     }
 
@@ -183,7 +184,7 @@ public class ScheduleView implements Serializable {
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
-        event = (ScheduleEvent) selectEvent.getObject();
+        event = (DefaultScheduleEvent) selectEvent.getObject();
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
@@ -204,22 +205,21 @@ public class ScheduleView implements Serializable {
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+   
     
-//    private void hasBil(){     
-//        for (ScheduleEvent event : eventModel.getEvents()){
-//            event.getData()          
-//            
-//        }
-//    }
-
 
     private void loadEvents() {
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         System.out.println(aktiviteter.size());
         for (Aktivitet a : aktiviteter) {
 //            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-            eventModel.addEvent(new DefaultScheduleEvent(a.toString(), 
-                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a));
+           DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), 
+                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+            if(a.hasBil()) {
+                temp.setStyleClass("bilEvent");
+                
+            } 
+            eventModel.addEvent(temp);
         }
     }
 
