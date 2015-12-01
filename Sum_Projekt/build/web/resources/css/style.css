@@ -45,3 +45,15 @@ body{
     width: 450px; 
 }
 
+.bilEvent {
+  background-color: red;
+  color: red;
+  
+}
+
+.fc-event {
+    overflow: hidden;
+    color: red
+}
+
+

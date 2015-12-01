@@ -5,6 +5,8 @@
  */
 package beans;
 
+
+import java.awt.Image;
 import com.sun.javafx.scene.control.SelectedCellsMap;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -52,7 +54,9 @@ public class ScheduleView implements Serializable {
     private MyScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
 
-    private DefaultScheduleEvent event;
+    private DefaultScheduleEvent event = new DefaultScheduleEvent();
+
+    
 
     private List<Medarbejder> selectedMedarbejdere;
     private List<Beboer> selectedBeboere;
@@ -201,15 +205,30 @@ public class ScheduleView implements Serializable {
 //            
 //        }
 //    }
+   
+    
+
+
     private void loadEvents() {
         eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         for (Aktivitet a : aktiviteter) {
 
+
             eventModel.addEvent(new DefaultScheduleEvent(a.toString(),
                     Service.localDateTimetoDate(a.getStart()), Service.localDateTimetoDate(a.getSlut()), a));
 
             //        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", Service.localDateTimetoDate(a.getStart()), Service.localDateTimetoDate(a.getStart())));
+
+      
+           DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), 
+                    service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+            if(a.hasBil()) {
+                temp.setStyleClass("bilEvent");
+                
+            } 
+            eventModel.addEvent(temp);
+
         }
 
     }

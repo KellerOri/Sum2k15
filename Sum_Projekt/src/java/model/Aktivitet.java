@@ -83,6 +83,7 @@ public class Aktivitet implements Serializable{
         this.titel = titel;
     }
   
+    @Override
     public String toString(){
         return titel + ": " + note;
     }
