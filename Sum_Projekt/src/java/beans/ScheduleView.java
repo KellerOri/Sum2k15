@@ -135,9 +135,12 @@ public class ScheduleView implements Serializable {
     }
 
     public void addEvent(ActionEvent actionEvent) {
-
+        List<PersonResource> prs = new ArrayList<PersonResource>();
+        prs.addAll(opretaktivitetbeboere);
+        prs.addAll(opretaktivitetmedarbejdere);
+        prs.addAll(opretaktivitetressource);
         if (event.getId() == null) {
-            Aktivitet a = service.createAktivitet(event.getTitle(), event.getDescription(), (String) event.getData(), event.getStartDate(), event.getEndDate());
+            Aktivitet a = service.createAktivitet(event.getTitle(), event.getDescription(), event.getStartDate(), event.getEndDate(), prs);
             event.setData(a);
             eventModel.addEvent(event);
         } else {

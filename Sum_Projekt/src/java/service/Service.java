@@ -46,20 +46,20 @@ public class Service implements Serializable {
     }
     
 
-    public Aktivitet createAktivitet(String title, String note, String sted, Date start, Date slut){
-        Aktivitet a = new Aktivitet();
-        a.setTitel(title);
-        a.setNote(note);
-        a.setStartdato(dateToLocalDate(start));
-        a.setSlutdato(dateToLocalDate(slut));
-        a.setSted(sted);
-        addAktivitet(a);
-        return a;
-    }
+//    public Aktivitet createAktivitet(String title, String note, String sted, Date start, Date slut){
+//        Aktivitet a = new Aktivitet();
+//        a.setTitel(title);
+//        a.setNote(note);
+//        a.setStartdato(dateToLocalDate(start));
+//        a.setSlutdato(dateToLocalDate(slut));
+//        a.setSted(sted);
+//        addAktivitet(a);
+//        return a;
+//    }
     
-    public Aktivitet createAktivitet(String title, String note, int interval, String sted, Date start, Date slut){
-        return createAktivitet(title, note, sted, start, slut);
-    }
+//    public Aktivitet createAktivitet(String title, String note, int interval, String sted, Date start, Date slut){
+//        return createAktivitet(title, note, sted, start, slut);
+//    }
 
     public void updateAktivitet(String title, String note, String sted, Date start, Date slut) {
         for(int i = 0; i<storage.getAktiviteter().size();i++) {
