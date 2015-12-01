@@ -59,9 +59,9 @@ public class ScheduleView implements Serializable {
     private List<String> selectedBeboere;
     private List<String> selectedResourcer;
 
-    private List<Beboer> opretaktivitetbeboere = new ArrayList<>();
-    private List<Medarbejder> opretaktivitetmedarbejdere = new ArrayList<>();
-    private List<Resource> opretaktivitetressource = new ArrayList<>();
+    private List<String> opretaktivitetbeboere = new ArrayList<>();
+    private List<String> opretaktivitetmedarbejdere = new ArrayList<>();
+    private List<String> opretaktivitetressource = new ArrayList<>();
     private List<String> personeriaktivitet = new ArrayList<>();
 
     @PostConstruct
@@ -134,22 +134,26 @@ public class ScheduleView implements Serializable {
         this.event = event;
     }
 
-    public void addEvent(ActionEvent actionEvent) {
-        List<PersonResource> prs = new ArrayList<PersonResource>();
-        prs.addAll(opretaktivitetbeboere);
-        prs.addAll(opretaktivitetmedarbejdere);
-        prs.addAll(opretaktivitetressource);
-        if (event.getId() == null) {
-            Aktivitet a = service.createAktivitet(event.getTitle(), event.getDescription(), event.getStartDate(), event.getEndDate(), prs);
+    public String addEvent(ActionEvent actionEvent) {
+        List<String> prString = new ArrayList<String>();
+        prString.addAll(opretaktivitetbeboere);
+        prString.addAll(opretaktivitetmedarbejdere);
+        prString.addAll(opretaktivitetressource);
+        List<PersonResource> prNonString = service.getPersonResourcerMedId(prString);
+        System.out.println("prs size " + prString.size());
+        System.out.println(Arrays.toString(prString.toArray()));
+//        if (event.getId() == null) {
+            Aktivitet a = service.createAktivitet(event.getTitle(), event.getDescription(), event.getStartDate(), event.getEndDate(), prNonString);
             event.setData(a);
             eventModel.addEvent(event);
-        } else {
+//        } else {
             eventModel.updateEvent(event);
 
-        }
+//        }
         event = new DefaultScheduleEvent();
 
 //        if(model !contains event)
+        return "schedule.xhtml";
     }
 
     public void deleteEvent(ActionEvent actionEvent) {
@@ -240,7 +244,7 @@ public class ScheduleView implements Serializable {
         return new ArrayList(opretaktivitetbeboere);
     }
 
-    public void setOpretaktivitetbeboere(List<Beboer> opretaktivitetbeboere) {
+    public void setOpretaktivitetbeboere(List<String> opretaktivitetbeboere) {
         this.opretaktivitetbeboere = opretaktivitetbeboere;
     }
 
@@ -248,7 +252,7 @@ public class ScheduleView implements Serializable {
         return new ArrayList(opretaktivitetmedarbejdere);
     }
 
-    public void setOpretaktivitetmedarbejdere(List<Medarbejder> opretaktivitetmedarbejdere) {
+    public void setOpretaktivitetmedarbejdere(List<String> opretaktivitetmedarbejdere) {
         this.opretaktivitetmedarbejdere = opretaktivitetmedarbejdere;
     }
 
@@ -256,7 +260,7 @@ public class ScheduleView implements Serializable {
         return new ArrayList(opretaktivitetressource);
     }
 
-    public void setOpretaktivitetressource(List<Resource> opretaktivitetressource) {
+    public void setOpretaktivitetressource(List<String> opretaktivitetressource) {
         this.opretaktivitetressource = opretaktivitetressource;
     }
 
@@ -269,7 +273,7 @@ public class ScheduleView implements Serializable {
     }
 
     public List allepersoneriaktivitet() {
-        List<PersonResource> combined = new ArrayList<>();
+        List<String> combined = new ArrayList<>();
         combined.addAll(opretaktivitetbeboere);
         combined.addAll(opretaktivitetmedarbejdere);
         combined.addAll(opretaktivitetressource);

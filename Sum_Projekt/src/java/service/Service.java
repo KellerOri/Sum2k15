@@ -72,10 +72,10 @@ public class Service implements Serializable {
             }
         }
     }
-    public Aktivitet createAktivitet(String title, String beskrivelse, Date start, Date slut, List<PersonResource> resourcer){
+    public Aktivitet createAktivitet(String title, String note, Date start, Date slut, List<PersonResource> resourcer){
         Aktivitet a = new Aktivitet();
         a.setTitel(title);
-        a.setNote(beskrivelse);
+        a.setNote(note);
         a.setStartdato(dateToLocalDate(start));
         a.setSlutdato(dateToLocalDate(slut));
         
