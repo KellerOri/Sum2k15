@@ -205,11 +205,31 @@ public class ScheduleView implements Serializable {
         eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         for (Aktivitet a : aktiviteter) {
-            DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
-            if (a.hasBil()) {
-                temp.setStyleClass("bilEvent");
+            for (PersonResource ps : a.getPersonresourcer()) {
+                boolean medBeboer = false;
+                String styleClass = "";
+
+                if (ps.getId().startsWith("b")) {
+                    medBeboer = true;
+                }
+                if (ps.getId().startsWith("m")) {
+
+                    DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+                    if (a.hasBil() && medBeboer) {
+                        styleClass = "bilEvent beboerEvent";
+
+                    } else if (a.hasBil()) {
+                        styleClass = "bilEvent";
+
+                    } else if (medBeboer) {
+                        styleClass = "beboerEvent";
+                    }
+
+                    temp.setStyleClass(styleClass);
+                    eventModel.addEvent(temp);
+                }
             }
-            eventModel.addEvent(temp);
+
         }
 
     }

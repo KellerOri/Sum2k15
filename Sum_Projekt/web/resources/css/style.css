@@ -50,10 +50,15 @@ body{
   color: red;
   
 }
+.beboerEvent {
+    background-color: yellow;
+    color: yellow;
+}
 
 .fc-event {
     overflow: hidden;
     color: red
+    
 }
 
 

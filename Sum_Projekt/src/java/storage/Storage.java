@@ -222,7 +222,16 @@ public class Storage implements Serializable{
         temp.clear();
         temp.add(m2);
         temp.add(b4);
-        addAktivitet(a6, temp);        
+        addAktivitet(a6, temp);     
+        
+        Aktivitet a7 = new Aktivitet();
+        a7.setTitel("Uden Medarbjeder");
+        a7.setStartdato(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(20, 30)));
+        a7.setSlutdato(a4.getStart().plusMinutes(55));
+        a7.addPersonRessource((PersonResource)b1);
+        
+        //a7.addPersonRessource((PersonResource) m2);
+        addAktivitet(a7);
         
         Note n = new Note(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
         addNote(n);
