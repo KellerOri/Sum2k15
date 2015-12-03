@@ -8,6 +8,7 @@
         <f:facet name="first">
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
             <h:outputStylesheet library="css" name="style.css"/>
+            <h:outputScript library="js" name="script.js" />
             <title>Dagsseddel</title>
         </f:facet>
     </h:head>
@@ -21,40 +22,32 @@
         <h:commandButton value="Dagsseddel" disabled="true">
         </h:commandButton>
     </p>
-    <p:tabView value="#{service.getBeboere()}" var="beboer" style="width:1800px">
-        <p:tab title="#{beboer.navn}">
-            <h:form prependId="false">
-                <div id="datepicker">
-                    <p:commandButton id="leftArrow" icon="ui-icon-carat-1-w" />
-                    <p:calendar id="calendar" value="#{dagseddelBean.aktuelDag}" locale="da" />
-                    <p:commandButton id="rightArrow" icon="ui-icon-carat-1-e"/>
-                </div>
-            </h:form>
-            <h:panelGrid columns="2" width="100%">
-                <p:outputLabel value="Medicin: " />
-                <p:outputLabel value="Noter: " />
-            </h:panelGrid>
+    <h:form>
+        <p:selectOneMenu id="dagsbeboere" value="#{scheduleView.valgtbeboer}" >
+            <p:ajax listener="#{scheduleView.loadEventModelDay()}" update=":form:schedule" />  
+            <p:ajax listener="#{scheduleView.loadEventModelDay()}" update=":noteform:note" />  
+            <f:selectItem itemLabel="Vælg beboer" itemValue="" noSelectionOption="true" />
+            <f:selectItems value="#{service.beboere}" var="beboer" itemLabel="#{beboer.navn}" itemValue="#{beboer}" />
+        </p:selectOneMenu>
+        <h:panelGrid columns="2" width="85%">
+            <p:outputLabel styleClass="dayheader" value="Medicin: " />
+            <p:outputLabel styleClass="dayheader" value="Noter: " />
 
+            <p:outputLabel value="#{beboer.navn}"/>
+        </h:panelGrid>
+    </h:form>
 
-        </p:tab>
-
-       
-
-    </p:tabView>
-
- <div class="dayCalendar">
-            <h:form>
-                <p:schedule id="schedule" value="#{scheduleView.eventModelDay}" widgetVar="myschedule" timeZone="GMT+1" view="agendaDay" locale="da">
-                </p:schedule>
-            </h:form>
-        </div>
-
-
-
-    <div id="note">
-        #{service.getNoteBeboerDag(beboer, dagseddelBean.aktuelDag)}
+    <div class="dayCalendar">
+        <h:form id="form">
+            <p:schedule id="schedule" value="#{scheduleView.eventModelDay}" widgetVar="myschedule" timeZone="GMT+1" view="agendaDay" locale="da">
+            </p:schedule>
+        </h:form>
     </div>
 
+
+    <h:form id="noteform">
+        <p:outputLabel id="note" value=" #{service.getNoteBeboerDag(scheduleView.valgtbeboer, dagseddelBean.aktuelDag)}"/>  
+    </h:form>
     <script type="text/javascript">
         PrimeFaces.locales['da'] = {
             closeText: 'Luk', prevText: 'Foregående', nextText: 'Næste', monthNames: ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'], monthNamesShort: ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'], dayNames: ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'], dayNamesShort: ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'], dayNamesMin: ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'], weekHeader: 'Uge', firstDay: 1, isRTL: false, showMonthAfterYear: false, yearSuffix: '', timeOnlyTitle: 'Kun tid', timeText: 'Tid', hourText: 'Timer', minuteText: 'minutter', secondText: 'sekunder', currentText: 'Nuværende dato', ampm: false, month: 'måned', week: 'uge', day: 'dag', allDayText: 'Hele dagen'
@@ -62,12 +55,13 @@
     </script>
     <script type="text/javascript">
         $(function () {
-            $(".fc-header").hide();
-            $(PF('event')).hide();
+            function hideHeader() {
+                $(".fc-header-right").hide();
+                $(".fc-thu.fc-col0.ui-widget-header").html("");
+            }; hideHeader();
         });
 
     </script>
-
 </h:body>
 
 

@@ -45,7 +45,7 @@ public class Storage implements Serializable{
         return instance;
     }
 
-    public List<Beboer> getBeboere() {
+    public ArrayList<Beboer> getBeboere() {
         return new ArrayList<>(beboere.values());
     }
 
@@ -235,7 +235,7 @@ public class Storage implements Serializable{
         
       
         
-        Note n = new Note(b1, LocalDate.of(2015, 11, 20), "Alice skal smides ud pga. af klager fra andre beboere");
+        Note n = new Note(b1, LocalDate.now(), "Alice skal smides ud pga. af klager fra andre beboere");
         addNote(n);
         
         

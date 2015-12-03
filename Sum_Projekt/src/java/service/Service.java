@@ -153,15 +153,17 @@ public class Service implements Serializable {
         return n;
     }
 
-    public String getNoteBeboerDag(Beboer beboer, Date dag) {
-
+    public String getNoteBeboerDag(String beboer, Date dag) {
+        String[] notebeboer = beboer.split(" ");
+        System.out.println(beboer);
         String toReturn = "Nothing!";
         List<Note> ner = storage.getNoter();
 
         for (Note n : ner) {
             LocalDateTime d = dateToLocalDate(dag);
             LocalDate datedag = LocalDate.of(d.getYear(), d.getMonth(), d.getDayOfMonth());
-            if (n.getBeboer().equals(beboer) && datedag.equals(n.getDag())) {
+            if (n.getBeboer().getId().equals(notebeboer[0]) && datedag.equals(n.getDag())) {
+                System.out.println("Inde i forlæalelawkjehwc");
                 toReturn = n.getIndhold();
             }
 

@@ -76,7 +76,9 @@ body{
 }
 .mixEvent {
     background-color: green !important;
-    
-    
+}
+.dayheader {
+    font-style: italic;
+    font-weight: bold;
 }
 

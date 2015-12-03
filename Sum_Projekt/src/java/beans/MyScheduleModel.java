@@ -72,7 +72,40 @@ public class MyScheduleModel extends DefaultScheduleModel {
             aktiviteter.addAll(pr.getAktiviteter());
         }
         for(Aktivitet a : aktiviteter){
-            addEvent(a);
+            
+            boolean medBeboer = false;
+            boolean medArbejder = false;
+            for (PersonResource ps : a.getPersonresourcer()) {
+
+                if (ps.getId().startsWith("b")) {
+                    medBeboer = true;
+
+                }
+                if (ps.getId().startsWith("m")) {
+                    medArbejder = true;
+
+                }
+
+            }
+     
+            String styleClass = "";
+            DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+            if (a.hasBil() && medBeboer) {
+                styleClass = "bilEvent beboerEvent";
+                System.out.println("beboerevent og bil event set");
+
+            } else if (a.hasBil()) {
+                styleClass = "bilEvent";
+                System.out.println("bilevent set");
+
+            } else if (medBeboer && medArbejder) {
+
+                styleClass = "mixEvent";
+                System.out.println("beboerevent set");
+            }
+
+            temp.setStyleClass(styleClass);
+            addEvent(temp);
         }
     }
 
