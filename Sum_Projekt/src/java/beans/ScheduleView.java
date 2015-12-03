@@ -248,6 +248,7 @@ public class ScheduleView implements Serializable {
                 }
 
             }
+
             if (medArbejder) {
                 String styleClass = "";
                 DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
@@ -261,15 +262,15 @@ public class ScheduleView implements Serializable {
 
                     styleClass = "mixEvent";
 
-                }
+                }if (a.hasMødelokale()){
+                    styleClass = "mødelokaleEvent";
 
                 temp.setStyleClass(styleClass);
                 eventModel.addEvent(temp);
 
             }
-
+            }
         }
-
     }
 
     public void loadEventModelDay() {

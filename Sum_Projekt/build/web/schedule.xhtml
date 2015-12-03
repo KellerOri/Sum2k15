@@ -74,6 +74,7 @@
                         <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" />
                     </p:schedule>
 
+              
                     <p:dialog widgetVar="eventDialog" header="Opret Aktivitet" showEffect="clip" hideEffect="clip">
                         <h:panelGrid id="eventDetails" columns="2">
                             <p:outputLabel for="title" value="Titel: " />
@@ -91,9 +92,10 @@
                             <p:outputLabel for="to" value="Til: " />
                             <p:calendar id="to" value="#{scheduleView.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
                         </h:panelGrid>
+
                         <hr/>
                         <p id="personressourcer">
-                            Personressourcer: 
+                            Personressourcer:
                         </p>
                         <hr/>
 
@@ -131,23 +133,20 @@
 
                         <h:panelGrid id="buttons" columns="3">
                             <p:commandButton type="reset" value="Nulstil" />
-                            <p:commandButton id="addButton" value="Gem" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
-                            <p:commandButton value="Slet" actionListener="#{scheduleView.deleteEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                            <p:commandButton id="addButton" value="Gem" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" ajax="false" />
+                            <p:commandButton value="Slet" actionListener="#{scheduleView.deleteEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" ajax="false"/>
                         </h:panelGrid>
                     </p:dialog>
+            </h:form>
+                    <script type="text/javascript">
+                        PrimeFaces.locales['da'] = {
+                            closeText: 'Luk', prevText: 'Foregående', nextText: 'Næste', monthNames: ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'], monthNamesShort: ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'], dayNames: ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'], dayNamesShort: ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'], dayNamesMin: ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'], weekHeader: 'Uge', firstDay: 1, isRTL: false, showMonthAfterYear: false, yearSuffix: '', timeOnlyTitle: 'Kun tid', timeText: 'Tid', hourText: 'Timer', minuteText: 'minutter', secondText: 'sekunder', currentText: 'Nuværende dato', ampm: false, month: 'måned', week: 'uge', day: 'dag', allDayText: 'Hele dagen'
+                        };
+                    </script>
 
-                </h:form>
-                <script>
-                    $("<i class="'fa fa-car'"></i>").appendTo(("title"));                </script>
-                <script type="text/javascript">
-                            PrimeFaces.locales['da'] = {
-                        closeText: 'Luk', prevText: 'Foregående', nextText: 'Næste', monthNames: ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'], monthNamesShort: ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'], dayNames: ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'], dayNamesShort: ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'], dayNamesMin: ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'], weekHeader: 'Uge', firstDay: 1, isRTL: false, showMonthAfterYear: false, yearSuffix: '', timeOnlyTitle: 'Kun tid', timeText: 'Tid', hourText: 'Timer', minuteText: 'minutter', secondText: 'sekunder', currentText: 'Nuværende dato', ampm: false, month: 'måned', week: 'uge', day: 'dag', allDayText: 'Hele dagen'
-                    };
-                </script>
-                
-              
             </div> 
         </div>
+
     </h:body>
 
 </html>
