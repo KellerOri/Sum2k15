@@ -93,7 +93,7 @@
                     </h:panelGrid>
                     <hr/>
                     <p id="personressourcer">
-                        Personressourcer: 
+                        Personressourcer:
                     </p>
                     <hr/>
 
@@ -131,15 +131,12 @@
 
                     <h:panelGrid id="buttons" columns="3">
                         <p:commandButton type="reset" value="Nulstil" />
-                        <p:commandButton id="addButton" value="Gem" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
-                        <p:commandButton value="Slet" actionListener="#{scheduleView.deleteEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                        <p:commandButton id="addButton" value="Gem" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" ajax="false" />
+                        <p:commandButton value="Slet" actionListener="#{scheduleView.deleteEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" ajax="false"/>
                     </h:panelGrid>
                 </p:dialog>
                     
                 </h:form>
-                <script>
-                $("<i class="'fa fa-car'"></i>").appendTo(("title"));
-            </script>
             </div> 
         </div>
     </h:body>

@@ -45,15 +45,30 @@ body{
     width: 450px; 
 }
 
-.bilEvent {
-  background-color: red;
-  color: red;
-  
+.bilEvent::after{
+    content: "";
+    background: url("http://localhost:8080/Sum_Projekt/faces/car124.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.37;
+    top: 50%;
+    left: 80%;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
 
-.fc-event {
-    overflow: hidden;
-    color: red
+.mødelokaleEvent::after{
+    content: "";
+    background: url("http://localhost:8080/Sum_Projekt/faces/business11.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.37;
+    top: 50%;
+    left: 80%;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
-
-
