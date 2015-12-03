@@ -280,3 +280,4 @@ public class ScheduleView implements Serializable {
         return combined;
     }
 }
+  
