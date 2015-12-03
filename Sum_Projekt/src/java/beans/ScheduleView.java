@@ -213,6 +213,7 @@ public class ScheduleView implements Serializable {
                 temp.setStyleClass("mødelokaleEvent");
             }
             eventModel.addEvent(temp);
+            
         }
 
     }

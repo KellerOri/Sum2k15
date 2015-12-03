@@ -4,10 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/Andromeda/Sum2k15/Sum_Projekt/src/java/beans/ScheduleView.java</file>
-            <file>file:/Users/Andromeda/Sum2k15/Sum_Projekt/web/dagsseddel.xhtml</file>
-            <file>file:/Users/Andromeda/Sum2k15/Sum_Projekt/src/java/service/Service.java</file>
+            <file>file:/Users/Andromeda/Sum2k15/Sum_Projekt/src/java/model/Aktivitet.java</file>
             <file>file:/Users/Andromeda/Sum2k15/Sum_Projekt/web/schedule.xhtml</file>
             <file>file:/Users/Andromeda/Sum2k15/Sum_Projekt/web/resources/css/style.css</file>
+            <file>file:/Users/Andromeda/Sum2k15/Sum_Projekt/src/java/beans/BeboerBean.java</file>
         </group>
     </open-files>
 </project-private>
