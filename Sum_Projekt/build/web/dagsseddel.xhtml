@@ -30,21 +30,60 @@
                     <p:commandButton id="rightArrow" icon="ui-icon-carat-1-e"/>
                 </div>
             </h:form>
-            <h:panelGrid columns="2" cellpadding="5">
-                <table border="1" style="width:1000px" align="center">
-                    <tr>
-                        <th>Medicin:</th> <th>Noter:</th>
-
-                    </tr>
-                    <tr>
-                        <td>her skal der stå medicin</td><td>#{service.getNoteBeboerDag(beboer, dagseddelBean.aktuelDag)}</td>
-                    </tr>
-                </table>
-
+            <h:panelGrid columns="2" width="100%">
+                <p:outputLabel value="Medicin: " />
+                <p:outputLabel value="Noter: " />
             </h:panelGrid>
+
+
         </p:tab>
+
+       
+
     </p:tabView>
 
+ <div class="dayCalendar">
+            <h:form>
+                <p:schedule id="schedule" value="#{scheduleView.eventModelDay}" widgetVar="myschedule" timeZone="GMT+1" view="agendaDay" locale="da">
+                </p:schedule>
+            </h:form>
+        </div>
+
+
+
+    <div id="note">
+        #{service.getNoteBeboerDag(beboer, dagseddelBean.aktuelDag)}
+    </div>
+
+    <script type="text/javascript">
+        PrimeFaces.locales['da'] = {
+            closeText: 'Luk', prevText: 'Foregående', nextText: 'Næste', monthNames: ['januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'], monthNamesShort: ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'], dayNames: ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'], dayNamesShort: ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'], dayNamesMin: ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'], weekHeader: 'Uge', firstDay: 1, isRTL: false, showMonthAfterYear: false, yearSuffix: '', timeOnlyTitle: 'Kun tid', timeText: 'Tid', hourText: 'Timer', minuteText: 'minutter', secondText: 'sekunder', currentText: 'Nuværende dato', ampm: false, month: 'måned', week: 'uge', day: 'dag', allDayText: 'Hele dagen'
+        };
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $(".fc-header").hide();
+            $(PF('event')).hide();
+        });
+
+    </script>
+
 </h:body>
+
+
+<!--<table border="1" style="width:1000px" align="center">
+                <tr>
+                    <th>Medicin:</th> <th>Noter:</th>
+
+                </tr>
+                <tr>
+                    <td>
+
+
+
+                    </td><td>#{service.getNoteBeboerDag(beboer, dagseddelBean.aktuelDag)}</td>
+
+                </tr>
+            </table> -->
 
 </html>

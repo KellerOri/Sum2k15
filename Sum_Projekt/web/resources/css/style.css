@@ -50,10 +50,8 @@ body{
   color: red;
   
 }
-.beboerEvent {
-    background-color: yellow;
-    color: yellow;
-}
+
+
 
 .fc-event {
     overflow: hidden;
@@ -61,4 +59,24 @@ body{
     
 }
 
+.dayCalendar{
+    width: 50%;
+    float:left;
+}
+
+#note{
+    width: 50%;
+    float:right;
+    padding-left: 10px;
+}
+
+.kunBeboerEvent{
+     background-color: yellow !important;
+     color: black !important;
+}
+.mixEvent {
+    background-color: green !important;
+    
+    
+}
 

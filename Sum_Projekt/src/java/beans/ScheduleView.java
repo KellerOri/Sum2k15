@@ -51,6 +51,7 @@ public class ScheduleView implements Serializable {
     @Inject
     Service service;
     private MyScheduleModel eventModel;
+    private MyScheduleModel eventModelDay;
     private ScheduleModel lazyEventModel;
 
     private DefaultScheduleEvent event;
@@ -66,9 +67,14 @@ public class ScheduleView implements Serializable {
 
     @PostConstruct
     public void init() {
+
         event = new DefaultScheduleEvent();
+
+        eventModelDay = new MyScheduleModel(service);
         eventModel = new MyScheduleModel(service);
         loadEvents();
+        loadEventModelDay();
+
     }
 
     public List<String> getSelectedMedarbejdere() {
@@ -95,6 +101,16 @@ public class ScheduleView implements Serializable {
     public void setSelectedResourcer(List<String> selectedResourcer) {
         this.selectedResourcer = selectedResourcer;
     }
+
+    public MyScheduleModel getEventModelDay() {
+        return eventModelDay;
+    }
+
+    public void setEventModelDay(MyScheduleModel eventModelDay) {
+        this.eventModelDay = eventModelDay;
+    }
+    
+    
 
     public Date getRandomDate(Date base) {
         Calendar date = Calendar.getInstance();
@@ -202,33 +218,92 @@ public class ScheduleView implements Serializable {
 //        }
 //    }
     private void loadEvents() {
+
+        //Load eventModel
         eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         for (Aktivitet a : aktiviteter) {
+
+            boolean medBeboer = false;
+            boolean medArbejder = false;
             for (PersonResource ps : a.getPersonresourcer()) {
-                boolean medBeboer = false;
-                String styleClass = "";
 
                 if (ps.getId().startsWith("b")) {
                     medBeboer = true;
+                    System.out.println("medbeboer true!");
+
                 }
                 if (ps.getId().startsWith("m")) {
+                    medArbejder = true;
 
-                    DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
-                    if (a.hasBil() && medBeboer) {
-                        styleClass = "bilEvent beboerEvent";
-
-                    } else if (a.hasBil()) {
-                        styleClass = "bilEvent";
-
-                    } else if (medBeboer) {
-                        styleClass = "beboerEvent";
-                    }
-
-                    temp.setStyleClass(styleClass);
-                    eventModel.addEvent(temp);
                 }
+
             }
+            if (medArbejder) {
+                String styleClass = "";
+                DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+                if (a.hasBil() && medBeboer) {
+                    styleClass = "bilEvent beboerEvent";
+
+                } else if (a.hasBil()) {
+                    styleClass = "bilEvent";
+
+                } else if (medBeboer) {
+
+                    styleClass = "mixEvent";
+
+                }
+
+                temp.setStyleClass(styleClass);
+                eventModel.addEvent(temp);
+
+            }
+
+        }
+
+    }
+
+    private void loadEventModelDay() {
+
+        eventModelDay.clear();
+        List<Aktivitet> aktiviteter = service.getAktiviteter();
+        for (Aktivitet a : aktiviteter) {
+
+            boolean medBeboer = false;
+            boolean medArbejder = false;
+            for (PersonResource ps : a.getPersonresourcer()) {
+
+                if (ps.getId().startsWith("b")) {
+                    medBeboer = true;
+
+                }
+                if (ps.getId().startsWith("m")) {
+                    medArbejder = true;
+
+                }
+
+            }
+     
+            String styleClass = "";
+            DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+            if (a.hasBil() && medBeboer) {
+                styleClass = "bilEvent beboerEvent";
+                System.out.println("beboerevent og bil event set");
+
+            } else if (a.hasBil()) {
+                styleClass = "bilEvent";
+                System.out.println("bilevent set");
+
+            } else if (medBeboer && medArbejder) {
+
+                styleClass = "mixEvent";
+                System.out.println("beboerevent set");
+            } else {
+                styleClass = "kunBeboerEvent";
+            }
+
+            temp.setStyleClass(styleClass);
+            eventModelDay.addEvent(temp);
 
         }
 
