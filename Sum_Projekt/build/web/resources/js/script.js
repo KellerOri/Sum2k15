@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 $(function () {
-    $(".ui-selectlistbox-item").click(function(){
-        
-   
+    $(".ui-selectlistbox-item").click(function () {
     });
-    
-    
-    
+    $(".fc-header-right").hide();
+    $(".fc-thu.fc-col0.ui-widget-header").html("");
 });
+
+
+          

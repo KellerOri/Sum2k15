@@ -14,20 +14,20 @@ import model.Beboer;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
 
-
    // or import javax.faces.bean.SessionScoped;
 @Named // or @ManagedBean(name="user")
 @SessionScoped
 public class BeboerBean implements Serializable {
 //    @Inject
 //    private service.Service service;-- ved ikke om det skal bruges
+
     private Beboer beboer = new Beboer();
 //    private List<Beboer> alleBeboer;
-    
-    public Beboer getBeboer(){
+
+    public Beboer getBeboer() {
         return beboer;
     }
-    
+
 //    @PostConstruct 
 //    public void init() {
 //        alleBeboer = new ArrayList<Beboer>();
@@ -37,19 +37,18 @@ public class BeboerBean implements Serializable {
 //        alleBeboer.add(new Beboer("Rikke"));
 //        
 //    }
-    
 //    public List<Beboer> getAlleBeboer() {
 //        return alleBeboer;
 //    }
-    
-     public void onTabChange(TabChangeEvent event) {
+    public void onTabChange(TabChangeEvent event) {
         FacesMessage msg = new FacesMessage("Tab Changed", "Active Tab: " + event.getTab().getTitle());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-         
+
     public void onTabClose(TabCloseEvent event) {
         FacesMessage msg = new FacesMessage("Tab Closed", "Closed tab: " + event.getTab().getTitle());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+ 
 }

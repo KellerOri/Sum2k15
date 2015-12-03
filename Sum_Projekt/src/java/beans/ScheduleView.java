@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import model.Aktivitet;
 import model.Beboer;
 import model.PersonResource;
+import org.primefaces.event.TabChangeEvent;
 
 import java.util.ArrayList;
 import model.Medarbejder;
@@ -51,9 +52,12 @@ public class ScheduleView implements Serializable {
     @Inject
     Service service;
     private MyScheduleModel eventModel;
+    private MyScheduleModel eventModelDay;
     private ScheduleModel lazyEventModel;
 
     private DefaultScheduleEvent event;
+
+    private String valgtbeboer;
 
     private List<String> selectedMedarbejdere;
     private List<String> selectedBeboere;
@@ -66,9 +70,22 @@ public class ScheduleView implements Serializable {
 
     @PostConstruct
     public void init() {
+
         event = new DefaultScheduleEvent();
+
+        eventModelDay = new MyScheduleModel(service);
         eventModel = new MyScheduleModel(service);
         loadEvents();
+        loadEventModelDay();
+
+    }
+
+    public String getValgtbeboer() {
+        return valgtbeboer;
+    }
+
+    public void setValgtbeboer(String valgtbeboer) {
+        this.valgtbeboer = valgtbeboer;
     }
 
     public List<String> getSelectedMedarbejdere() {
@@ -94,6 +111,14 @@ public class ScheduleView implements Serializable {
 
     public void setSelectedResourcer(List<String> selectedResourcer) {
         this.selectedResourcer = selectedResourcer;
+    }
+
+    public MyScheduleModel getEventModelDay() {
+        return eventModelDay;
+    }
+
+    public void setEventModelDay(MyScheduleModel eventModelDay) {
+        this.eventModelDay = eventModelDay;
     }
 
     public Date getRandomDate(Date base) {
@@ -202,18 +227,102 @@ public class ScheduleView implements Serializable {
 //        }
 //    }
     private void loadEvents() {
+
+        //Load eventModel
         eventModel.clear();
         List<Aktivitet> aktiviteter = service.getAktiviteter();
         for (Aktivitet a : aktiviteter) {
-            DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
-            if (a.hasBil()) {
-                temp.setStyleClass("bilEvent");
+
+            boolean medBeboer = false;
+            boolean medArbejder = false;
+            for (PersonResource ps : a.getPersonresourcer()) {
+
+                if (ps.getId().startsWith("b")) {
+                    medBeboer = true;
+                    System.out.println("medbeboer true!");
+
+                }
+                if (ps.getId().startsWith("m")) {
+                    medArbejder = true;
+
+                }
+
             }
-            eventModel.addEvent(temp);
-            
+            if (medArbejder) {
+                String styleClass = "";
+                DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+                if (a.hasBil() && medBeboer) {
+                    styleClass = "bilEvent beboerEvent";
+
+                } else if (a.hasBil()) {
+                    styleClass = "bilEvent";
+
+                } else if (medBeboer) {
+
+                    styleClass = "mixEvent";
+
+                }
+
+                temp.setStyleClass(styleClass);
+                eventModel.addEvent(temp);
+
+            }
+
         }
 
     }
+
+    public void loadEventModelDay() {
+        eventModelDay.clear();
+        if (valgtbeboer != null && !valgtbeboer.equals("")) {
+            String[] valgtbeboerarray = valgtbeboer.split(" ");
+            List<Aktivitet> aktiviteter = service.getAktiviteter();
+            for (Aktivitet a : aktiviteter) {
+                boolean isvalgtbeboer = false;
+                boolean medBeboer = false;
+                boolean medArbejder = false;
+                for (PersonResource ps : a.getPersonresourcer()) {
+
+                    if (ps.getId().startsWith("b")) {
+                        String[] beboer = ps.getId().split(" ");
+                        if (beboer[0].equals(valgtbeboerarray[0])) {
+                            isvalgtbeboer = true;
+                        }
+                        medBeboer = true;
+
+                    }
+                    if (ps.getId().startsWith("m")) {
+                        medArbejder = true;
+
+                    }
+
+                }
+                if (isvalgtbeboer) {
+                    String styleClass = "";
+                    DefaultScheduleEvent temp = new DefaultScheduleEvent(a.toString(), service.localDateTimetoDate(a.getStart()), service.localDateTimetoDate(a.getSlut()), a);
+                    if (a.hasBil() && medBeboer) {
+                        styleClass = "bilEvent beboerEvent";
+                        System.out.println("beboerevent og bil event set");
+
+                    } else if (a.hasBil()) {
+                        styleClass = "bilEvent";
+                        System.out.println("bilevent set");
+
+                    } else if (medBeboer && medArbejder) {
+
+                        styleClass = "mixEvent";
+                        System.out.println("beboerevent set");
+                    } else {
+                        styleClass = "kunBeboerEvent";
+                    }
+
+                    temp.setStyleClass(styleClass);
+                    eventModelDay.addEvent(temp);
+                }
+            }
+        }
+    }
+
 
     public void test() {
         System.out.println("Test() eventcount: " + eventModel.getEventCount());

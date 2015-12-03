@@ -7,11 +7,23 @@
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/model/Medarbejder.java</file>
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/service/Service.java</file>
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/beans/MyScheduleModel.java</file>
+<<<<<<< HEAD
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/beans/NoteBean.java</file>
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/storage/Storage.java</file>
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/schedule.xhtml</file>
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/model/Beboer.java</file>
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/index.xhtml</file>
+=======
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/resources/css/style.css</file>
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/beans/NoteBean.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/storage/Storage.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/resources/js/script.js</file>
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/schedule.xhtml</file>
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/model/Beboer.java</file>
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/index.xhtml</file>
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/dagsseddel.xhtml</file>
+            <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/beans/DagseddelBean.java</file>
+>>>>>>> Peter_Patrick
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/resources/font-awesome-4.5.0/less/icons.less</file>
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/web/welcomePrimefaces.xhtml</file>
             <file>file:/C:/Users/Patrick/Documents/Sum2k15/Sum_Projekt/src/java/beans/BeboerBean.java</file>

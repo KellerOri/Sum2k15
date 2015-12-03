@@ -51,9 +51,34 @@ body{
   
 }
 
+
+
 .fc-event {
     overflow: hidden;
     color: red
+    
 }
 
+.dayCalendar{
+    width: 50%;
+    float:left;
+}
+
+#note{
+    width: 50%;
+    float:right;
+    padding-left: 10px;
+}
+
+.kunBeboerEvent{
+     background-color: yellow !important;
+     color: black !important;
+}
+.mixEvent {
+    background-color: green !important;
+}
+.dayheader {
+    font-style: italic;
+    font-weight: bold;
+}
 
