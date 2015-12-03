@@ -131,7 +131,7 @@
 
                         <h:panelGrid id="buttons" columns="3">
                             <p:commandButton type="reset" value="Nulstil" />
-                            <p:commandButton id="addButton" value="Gem" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                            <p:commandButton id="addButton" value="Gem" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" ajax="false" />
                             <p:commandButton value="Slet" actionListener="#{scheduleView.deleteEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide(); location.reload();" />
                         </h:panelGrid>
                     </p:dialog>
