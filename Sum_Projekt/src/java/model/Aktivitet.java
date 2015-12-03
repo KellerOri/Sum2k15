@@ -111,13 +111,20 @@ public class Aktivitet implements Serializable{
 
 
     public boolean hasBil(){
+        return findResource().isBil();
+    }
+    
+    public boolean hasMødelokale(){
+        return findResource().isMødelokale();  
+    }
+
+    private Resource findResource(){
         Resource temp = new Resource();
         for (PersonResource pr : personresourcer){
             if (pr.getClass() == Resource.class){
                 temp = (Resource) pr;
             }
         }
-        return temp.isBil();
+        return temp;
     }
-
 }
