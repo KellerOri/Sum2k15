@@ -210,6 +210,7 @@ public class ScheduleView implements Serializable {
                 temp.setStyleClass("bilEvent");
             }
             eventModel.addEvent(temp);
+            
         }
 
     }
